@@ -60,7 +60,8 @@ _posts 디렉토리에 모든 md 파일들이 지워져있는 것을 보니 명�
 ![internal image does not exist](/images/2022-11-07/error-code1-2022-11-04%20143703.png){:class="img-responsive"}
 테마 변경 과정에서 실수로 첨부파일 이미지를 디렉토리에 넣지않았다.
 
-![favicon file name miss match](/images/2022-11-07/error-code1-2022-11-04%20232641.png){:class="img-responsive"}
+![favicon file name miss match](/images/2022-11-07/error-code1-2022-11-04%20232641.png)
+
 
 테마의 설명파일에 소개된 대로 favicon을 제작해 설치했으나 파일명이 다른 이미지가 있었다.
 
