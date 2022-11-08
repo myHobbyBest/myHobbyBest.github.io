@@ -16,7 +16,7 @@ toc: true
 
 ### Windows PowerShell 에서 .sh script를 실행
 
-아무튼 잘못된 점을 인지하고 곳바로 이를 바로잡아 다시 시도하였다. 이 모든 오류의 출발점은 git bash command 창에서 `tools/init.sh`를 실행한 것이 아래에서 처럼 오류 메시지를 발생 시키고 올바른 진행이 되지않는 때문에 init를 수동으로 진행하는 과정에서 발생한 것이다.
+아무튼 잘못된 점을 인지하고 곳바로 이를 바로잡아 다시 시도하였다. 이 모든 오류의 출발점은 git bash command 창에서 `tools/init.sh`를 실행한 것이 아래에서 처럼 오류 메시지를 발생 시키고 올바른 진행이 되지않기 때문에 init를 수동으로 진행하는 과정에서 발생한 것이다.
 
 ![init.sh script error](/images/2022-11-07/unstaged_files_2022_11_07.png){:class="img-responsive"}
 
