@@ -19,7 +19,7 @@ timezone: Asia/Seoul
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: MyHobbyBest                          # the main title
+title: myHobbyBest                          # the main title
 
 tagline: 취미코딩   # it will display as the sub-title
 
@@ -33,7 +33,7 @@ github:
   username: myHobbyBest          # change to your github username
 
 facebook:
-  username: ysisup.han            # change to your twitter username
+#  username: ysisup.han            # change to your twitter username
 
 social:
   # Change to your full name.
@@ -42,10 +42,10 @@ social:
   email: myHobbyBest62@gmail.com         # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    # - https://twitter.com/username      # change to your twitter homepage
+    - https://twitter.com/username      # change to your twitter homepage
     - https://github.com/myHobbyBest       # change to your github homepage
     # Uncomment below to add more social links
-    - https://www.facebook.com/ysisup.han
+    # - https://www.facebook.com/ysisup.han
     # - https://www.linkedin.com/in/username
 
 google_site_verification:               # fill in to your verification string
