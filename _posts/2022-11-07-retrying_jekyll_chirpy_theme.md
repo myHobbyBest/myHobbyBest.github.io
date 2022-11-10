@@ -2,7 +2,7 @@
 title:  "다시 시도하는 Chirpy 테마"  
 date:   2022-11-07 23:14:09 +0900
 categories: [Github-Pages, jekyll blog]
-tag: [jekyll, blog, chirpy-theme,EXIT CODE1, EXIT CODE16, init.sh ]
+tag: [jekyll, blog, chirpy-theme, exit code 1, exit code 16, init.sh ]
 toc: true
 ---
 
@@ -29,7 +29,7 @@ toc: true
 _posts 디렉토리에 모든 md 파일들이 지워져있는 것을 보니 명령이 잘 실행된 것이라고 생각되었다. 
     
     
-### 걸러지지 않는 ERROR(EXIT CODE16) - 1 
+### 걸러지지 않는 ERROR 1 - EXIT CODE 16
 
 무사히 잘 진행되는가 싶었지만 page build과정에서 또 다시 에러가 발생하는데 
 
@@ -52,7 +52,7 @@ _posts 디렉토리에 모든 md 파일들이 지워져있는 것을 보니 명�
 
 (  버전 5.0 이전 버전 의 README.MD 파일을 살펴보면 위 명령은 linux 가 아닌 시스템인 경우에 필요한 내용이라고 하는데 5.0 이상 버전 배포 과정에서 실수로 삭제된 것 같다. )
 
-### 걸러지지 않는 ERROR(EXIT CODE1) - 2 
+### 걸러지지 않는 ERROR 2 - EXIT CODE 1
 
 이번 에러는 post글 첨부파일 이미지나 favicon같은 것들로 부터 발생했다.
   
