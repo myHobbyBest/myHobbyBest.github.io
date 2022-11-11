@@ -1,12 +1,12 @@
 ---
-title:  "다시 시도하는 Jekyll-Chirpy-Theme"  
+title:  "다시 시도하는 Jekyll-Theme-Chirpy"  
 date:   2022-11-07 23:14:09 +0900
 categories: [Github-Pages, jekyll blog]
 tag: [jekyll, blog, chirpy-theme, exit code 1, exit code 16, init.sh ]
 toc: true
 ---
 
-## Chirpy Theme 설치
+
 
 ### 오류의 원인
 
