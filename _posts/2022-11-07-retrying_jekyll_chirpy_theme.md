@@ -52,7 +52,7 @@ _posts 디렉토리에 모든 md 파일들이 지워져있는 것을 보니 명�
  bundle lock --add-platform x86_64-linux 
 ```
 
-이걸 명령 창에서 실행하였다.  __github desktop__ 을 살펴 보니 `Gemfile.lock` 파일이 몇 군데 변경된 것을 알 수 있었다. 이걸 다시 push하니 이번엔 build 과정이 에러없이 잘 진행되었다.
+이걸 명령 창에서 실행하였다.  __github desktop__ 을 살펴 보니 방법 파일이 몇 군데 변경된 것을 알 수 있었다. 이걸 다시 push하니 이번엔 build 과정이 에러없이 잘 진행되었다.
 (사람들은 github GUI 프로그램으로 __github desktop__ 보다는 __sourcetree__ 를 추천하지만 나같은 뉴비들에게는 이런 부분을 알 수 있게 해준다는 점에서 __github desktop__ 이 유용성이 아주 없는 것도 아닌 것 같다. 나중에 빌드 에러도 아니면서 사이트 접속이 않되는 상황을 마주했는데  이 파일을 원상복귀하고 다시 ``bundle lock --add-platform x86_64-linux`` 명령을 입력하는 방법으로 해결했기 때문이다. )  
   
 
@@ -99,10 +99,27 @@ _posts 디렉토리에 모든 md 파일들이 지워져있는 것을 보니 명�
 
     <br>
    몇몇 사이트에 질문도 올려보았지만 이건 아직도 원인을 알 수 없고 사이트를 전부 지우고 다시 만들어서 해결해야 했다.  
-
    <br/> <br/>
+   
+### 새로운 시도 
+
 - 대부분의 블로그에서 gh-pages 브랜치가 자동으로 생성되는 것을 언급하지만 내 경우에는 그렇지 않아서 master 브랜치에서 포스팅 중이다.
+그런데 어느 블로그의 댓글에서 내 경우와 동일한 현상을 질문을 하신 분에 대하여 
+``요즘은  action에서 source를 github actions로 변경만 하시면 된다`` 
+라는 답변을 주신 분을 발견했다.   이건 아마 __pages__  에서 __source__ 를 __Github Actions__ 로 바꾸면 된다는 뜻으로 해석되었다.
+ 그대로 적용해 놓고 변화를 관찰하기로 했다.
+  (아래 그림 참조)
+
+<tr>
+    <td> <img src="/images/2022-11-07/press_this_20221111_093717.png" alt="press this" style="zoom:40%;" /> </td>
+    <td> <img src="/images/2022-11-07/select_20221111_093736.png" alt="select" style="zoom:50%;" /> </td>
+    <td> <img src="/images/2022-11-07/last_result_20221111_093805.png" alt="last_result" style="zoom:40%;" />  </td>
+</tr>
 <br>
+
+<br>
+
+  글의 완성도를 높이고 싶어서 조금씩 수정하고 커밋 푸쉬를 하고 나면 또 오타도 발견되고 해서 하루에도 몇번씩 커밋 푸쉬를  시도하게 되는데 SITE가 어딘가 불안해서 page build 과정에서 에러가 없는데도 불구하고 페이지가 제대로 표시되지 않고  ``--- layout: home # Index page ---`` 이렇게 나타나는 경우가 발생하고 있다. 이걸 해결하기 위해 임시로는 앞서 언급했던 것처럼 `Gemfile.lock` 파일을 원상복구했다가   ``bundle lock --add-platform x86_64-linux`` 를 실행하는 방법을 활용하고 있는데 어쩌면 이런 문제도 해결될 수 있지 않을까 기대해본다.   
  <br>
 ### 몇 가지 Tips
 
