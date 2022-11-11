@@ -110,11 +110,13 @@ _posts 디렉토리에 모든 md 파일들이 지워져있는 것을 보니 명�
  그대로 적용해 놓고 변화를 관찰하기로 했다.
   (아래 그림 참조)
 
-<tr>
-    <td> <img src="/images/2022-11-07/press_this_20221111_093717.png" alt="press this" style="zoom:40%;" /> </td>
-    <td> <img src="/images/2022-11-07/select_20221111_093736.png" alt="select" style="zoom:50%;" /> </td>
-    <td> <img src="/images/2022-11-07/last_result_20221111_093805.png" alt="last_result" style="zoom:40%;" />  </td>
-</tr>
+
+   <div> <img src="/images/2022-11-07/press_this_20221111_093717.png" alt="press this" style="zoom:80%;" />
+   <div> <img src="/images/2022-11-07/select_20221111_093736.png" alt="select" style="zoom:80%;" /> 
+    <div> <img src="/images/2022-11-07/last_result_20221111_093805.png" alt="last_result" style="zoom:80%;" /> 
+
+
+
 <br>
 
 <br>
