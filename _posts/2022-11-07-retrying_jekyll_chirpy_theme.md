@@ -1,5 +1,5 @@
 ---
-title:  "다시 시도하는 Chirpy 테마"  
+title:  "다시 시도하는 Jekyll-Chirpy-Theme"  
 date:   2022-11-07 23:14:09 +0900
 categories: [Github-Pages, jekyll blog]
 tag: [jekyll, blog, chirpy-theme, exit code 1, exit code 16, init.sh ]
