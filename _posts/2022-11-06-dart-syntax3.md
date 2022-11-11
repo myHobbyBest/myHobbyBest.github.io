@@ -2,7 +2,7 @@
 title:  "Dart문법(3) - List"  
 date:   2022-11-06 17:20:30 +0900
 categories: [Dart syntax, Flutter]
-tag: [list,  iterator, addall, contains, any, map, runtimetype, list of Lists, expand(), sublist(), shuffle(), asMap(),  whereType(), getRange(), replaceRange(), firstWhere(), singleWhere() ,fold() , followedBy(), take(), skip() ]
+tag: [list,   addall, map, expand(), getRange(), replaceRange(), singleWhere(), fold(), followedBy(), take()]
 toc: true 
 ---
 
