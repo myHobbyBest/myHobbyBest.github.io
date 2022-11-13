@@ -2,7 +2,7 @@
 title:  "Dart문법(3) - List"  
 date:   2022-11-06 17:20:30 +0900
 categories: [Dart syntax, Flutter]
-tag: [list,   addall, map, expand()]
+tag: [list,   addall, map, expand(), asMap()]
 toc: true 
 ---
 
