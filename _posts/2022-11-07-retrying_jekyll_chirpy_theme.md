@@ -52,7 +52,7 @@ _posts 디렉토리에 모든 md 파일들이 지워져있는 것을 보니 명�
  bundle lock --add-platform x86_64-linux 
 ```
 
-이걸 명령 창에서 실행하였다.  __github desktop__ 을 살펴 보니 방법 파일이 몇 군데 변경된 것을 알 수 있었다. 이걸 다시 push하니 이번엔 build 과정이 에러없이 잘 진행되었다.
+이걸 명령 창에서 실행하였다.  __github desktop__ 을 살펴 보니 `Gemfile.lock` 파일이 몇 군데 변경된 것을 알 수 있었다. 이걸 다시 push하니 이번엔 build 과정이 에러없이 잘 진행되었다.
 (사람들은 github GUI 프로그램으로 __github desktop__ 보다는 __sourcetree__ 를 추천하지만 나같은 뉴비들에게는 이런 부분을 알 수 있게 해준다는 점에서 __github desktop__ 이 유용성이 아주 없는 것도 아닌 것 같다. 나중에 빌드 에러도 아니면서 사이트 접속이 않되는 상황을 마주했는데  이 파일을 원상복귀하고 다시 ``bundle lock --add-platform x86_64-linux`` 명령을 입력하는 방법으로 해결했기 때문이다. )  
   
 
