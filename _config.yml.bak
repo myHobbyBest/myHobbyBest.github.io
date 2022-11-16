@@ -48,12 +48,12 @@ social:
     # - https://www.facebook.com/ysisup.han
     # - https://www.linkedin.com/in/username
 
-google_site_verification:EDAzzcm40XNG3-R6l-437W_uKdouyo4ISA-HCh6UuBQ       # fill in to your verification string
+google_site_verification: EDAzzcm40XNG3-R6l-437W_uKdouyo4ISA-HCh6UuBQ
 
 # ↑ --------------------------
 # The end of `jekyll-seo-tag` settings
 
-naver_site_verification  : "491ad4078aec78a4c85c1387aa51dc596ff1ecb7"
+naver_site_verification  :"491ad4078aec78a4c85c1387aa51dc596ff1ecb7"
 
 
 google_analytics:
