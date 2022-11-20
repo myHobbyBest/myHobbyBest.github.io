@@ -1,7 +1,7 @@
 ---
 title:  "Dart문법(2)-Ternary operator, type casting, function"  
 date:   2022-11-05 21:00:50 +0900
-categories: [Dart syntax, Flutter]
+categories: [Flutter, Dart syntax ]
 tag: [Ternary operator, cascade notation, type casting, function ]
 toc: true
 ---
