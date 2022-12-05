@@ -31,11 +31,11 @@ toc: true
 
 ### 객체 와 class 비교
 
-|                       Object             |                Class                                      |
-|----------------------------------------|--------------------------------|
-|  객체는 class의 인스턴스이다.                                    |    class 는 객체를 생성하기 위한 청사진(템플리트) 이다.    |
-|  객체는 펜, 마우스, 의자 등과 같은 현실 세계의 개체(entity)이다.   |                class 는 유사한 객체들의 집합이다.                |
-|  객체는 물리적 개체이다.                                         |      class는 논리적 개체(entity)이다.         |
+|                      Object |            Class                             |
+|:----------------------------------------:|:--------------------------------:|
+|  객체는 class의 인스턴스이다.             |    class 는 객체를 생성하기 위한 청사진(템플리트) 이다.    |
+|  객체는 펜, 마우스, 의자 등과 같은 현실 세계의 개체(entity)이다.   |            class 는 유사한 객체들의 집합이다.    |
+|  객체는 물리적 개체이다.                  |      class는 논리적 개체(entity)이다.         |
 |  객체는 필요할 때마다 반복해서 생성된다.                          |      class는 오직 한번 만 선언한다.  |
 |  객체가 생성되면 메모리에 상주한다.                               |           class는 선언해도 메모리를 점유하지않는다.    |
 
@@ -94,11 +94,12 @@ class 클래스명{
     }
 }
 ```
-예제
+
+이름없는 생성자는 단 한개만 가능하며 이름있는 생성자를 선언하면 기본생성자를 생략할 수 없다. 
+< 예제 >
 
 ``` dart
 class Person{
-
     Person(){
         print('This is Person Constructor!');
     }
@@ -107,15 +108,70 @@ class Person{
         print('This is Person.init Constructor!');
     }
 }
+
 Class Student extends Person{
     print(' This is Student Constructor!');
-    }
+    
 }
-main(){
 
+main(){
     var person = Person();
     var init = Person.init();
-
 }
 ```
 
+### 초기화 리스트 
+
+최기화 리스트를 사용하면 생성자의 구현부가 실행되기 전에 인스턴스 변수를 초기화 할 수 있다. 
+새성자 옆에서 콜론(:)을 붙여 선언한다.
+
+``` dart
+class Person{
+ Striing name;
+
+    Person():name='Kim'{    
+        print('This is Person($name) Constructor!');
+    }
+}
+
+main(){
+    var person = Person();
+}
+```
+결과
+``` terminal
+Thsis is Person(Kim) Construstor!
+```
+
+### 리다이렉팅 생성자
+
+초기화리스트를 응용하면 단순히 리다이렉팅을 위한 생성자를 만들 수 있다. 본체가 비어있고 메인 생성자에게 위임하는 역할을 한다.
+
+``` dart
+class Person{
+    String name;
+    int age;
+    Person (this.name, this,age){
+        print('This is Person($name, $age) Constructor!'  );
+    }
+
+    Person.initName(String name) : this (name,20);
+}
+
+main(){
+    var person = Person.initName('Kim');
+
+}
+```
+결과
+``` terminal
+ This is Person(Kim, 20) Constructor!
+```
+이름있는 생성자인 Person.initName(String name)은 본체가 없고 초기화 리스트로 this(name,20)가 선언되어있다. this 는 현재의 인스턴스를 가리키므로 여기서 this(name,20)은 현재인스턴스의 생성자인 Person(this.name, this.age)가 된다. 따라서 Person.initName('Kim')을 호출하면 Person()의 인자로 쓰인 this.name은 현재 인스턴스의 name을 의미하므로 Person(this.name, this.age)의 인자로 Person.initName('Kim')에서 받은 Kim과 20이 할당된다. 
+
+
+### 참고 자료
+
+-  '플러터를 위한 다트언어'  서준수    브런치북
+-  유튜브 [왕초보 무료 프로그래밍 언어 강의] [Dart] #17 - Class [#1] 선언 및 Constructor (https://youtu.be/9NSlc_CRiLI )
+-  플러터(flutter) 순한맛 강좌 12 | 플러터 다트(dart) 핵심정리: 클래스와 위젯의 정체 1   https://youtu.be/8k4vaoga2co
