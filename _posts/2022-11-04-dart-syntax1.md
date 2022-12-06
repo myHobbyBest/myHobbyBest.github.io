@@ -28,6 +28,10 @@ print(num1.runtimeType); //int
 var 은 compile time에 type 이 결정되지만
 dynamic 은 runtime에 type 이 결정된다
 
+#### 변수 type의 확장
+프로그래밍 언어에서 전통적인 의미의 __변수 type__ 이란 문자인지 숫자인지 정수인지 실수인지 논리값인지 array ( List, Map 등을 포함? ) 인지 정도를 구분하기 위한 것이 었다면 요즘의 프로그래밍 언어에서는 __변수 type__ 은 그 의미가 많이 확장되었다. color, class(뒤에서 다시 설명할 기회가 있다. ) 등도 변수 type 으로 선언할 수 있다.
+
+
 
 ### null safty
 
