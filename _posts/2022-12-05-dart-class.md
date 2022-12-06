@@ -39,11 +39,33 @@ toc: true
 |  객체는 필요할 때마다 반복해서 생성된다.                          |      class는 오직 한번 만 선언한다.  |
 |  객체가 생성되면 메모리에 상주한다.                               |           class는 선언해도 메모리를 점유하지않는다.    |
 
+
+#### 예제
+아래와 같이 Cat이라는 크라스를 정의해보자 
+``` dart
+class Cat {
+    String name;
+    String color;
+}
+```
+위에서 정의된 `String name` 과 `String color` 는 속성 또는 class member 라고 부른다. 
+
+- 인스턴스 생성방법
+
+``` dart
+Cat nora = new Cat(); //  dart 언어에서 `new` 키워드는 생략할 수 있다.  
+nora.name = 'Nora';
+nora.color = 'Orange';
+```
+
+`Cat nora` 이렇게 변수명 앞에 `Cat`이라고 쓰는 것은 일종의 __변수type__ 선언이다. 하지만 `var nora` 라고 선언할 수도 있다.
+
 ### 생성자 (constructor)
 
-Class 에는 항상 생성자가 따라 다닌다. class 가 객체가 생성될때 (인스턴스화 할때) 호출되기 때문에 생성자라고 이름지어졌다.
-생성자에는 알아두어야할 여러가지 개념이 있다.
-- 기본 생성자(default constructor), 이름있는 생성자(Named constructor), 초기화 리스트(initializer list), 리다이렉팅 생성자(redirecting constructor),상수 생성자(constant constructor), 팩토리 생성자(factory constructor).
+Class 에는 항상 생성자가 따라 다닌다. 생성자는 미리 결정된 속성값을 가지고 객체들을 생성한다. class로부터 객체가 생성될때 (인스턴스화 할때) 호출되기 때문에 생성자라고 이름지어졌다.
+` 생성자에는 표준 생성자(standard constructor,default constructor), 이름있는 생성자(Named constructor),팩토리 생성자(factory constructor) 등의 종류가 있다. 
+이외에도 초기화 리스트(initializer list), 리다이렉팅 생성자(redirecting constructor), 상수 생성자(constant constructor) 등의 개념을 알아두어야한다.
+
 
 #### 기본 생성자(default constructor)
 
@@ -120,28 +142,6 @@ main(){
 }
 ```
 
-### 초기화 리스트 
-
-최기화 리스트를 사용하면 생성자의 구현부가 실행되기 전에 인스턴스 변수를 초기화 할 수 있다. 
-새성자 옆에서 콜론(:)을 붙여 선언한다.
-
-``` dart
-class Person{
- Striing name;
-
-    Person():name='Kim'{    
-        print('This is Person($name) Constructor!');
-    }
-}
-
-main(){
-    var person = Person();
-}
-```
-결과
-``` terminal
-Thsis is Person(Kim) Construstor!
-```
 
 ### 리다이렉팅 생성자
 
@@ -169,6 +169,107 @@ main(){
 ```
 이름있는 생성자인 Person.initName(String name)은 본체가 없고 초기화 리스트로 this(name,20)가 선언되어있다. this 는 현재의 인스턴스를 가리키므로 여기서 this(name,20)은 현재인스턴스의 생성자인 Person(this.name, this.age)가 된다. 따라서 Person.initName('Kim')을 호출하면 Person()의 인자로 쓰인 this.name은 현재 인스턴스의 name을 의미하므로 Person(this.name, this.age)의 인자로 Person.initName('Kim')에서 받은 Kim과 20이 할당된다. 
 
+
+#### 상수 생성자
+class 멤버 변수 앞에서 final을 선언하면 상수처럼 변하지 않는 객체를 생성한다. 이를 상수 생성자라고 부르며 생성자앞에 const 를 붙여 주어야 한다. 
+
+``` dart
+class Rectangle {
+  // these are assigned in the constructor,
+  // and can never be changed.
+  final int width;
+  final int height;
+  const Rectangle(this.width, this.height);
+}
+
+main (){
+  
+  Rectangle rec1 = const  Rectangle(20, 30);
+  Rectangle rec2 = const  Rectangle(20, 30);
+  Rectangle rec3 = new  Rectangle(20, 30);
+  Rectangle rec4 = new  Rectangle(20, 30);
+  
+  print (identical (rec1,rec2));
+  print (identical (rec2,rec3));
+  print (identical (rec3,rec4));
+}
+```
+실행 결과
+
+``` consol
+true
+false
+false
+```
+`rec1`과 `rec2`완전히 동일한 인스턴스를 참조하고있기떄문에 참 값이 반환되었지만  나머지는 모두 별개의  인스턴스를 생성하고 있어서 참이 아니다.
+
+### 초기화 리스트 
+
+최기화 리스트를 사용하면 인스턴스가 생성될 때 생성자의 구현부가 실행되기 전에 인스턴스 변수를 초기화 할 수 있다. 
+생성자 옆에서 콜론(:)을 붙여 선언한다.
+
+``` dart
+main() {
+  final rectangle = Rectangle(2, 5);
+}
+
+class Rectangle {
+  final int width;
+  final int height;
+  final int area;
+  
+  Rectangle(this.width, this.height) 
+    : area = width * height {
+      print(area);
+    }
+}
+```
+사각형의 면적은 넓이와 높이를 알아야 계산되지만 인스턴스가 생성될 때까지는  그 값을 알수 없으므로 생성자 밖에서는 계산할 수 없다. 이런경우에 유용하게 사용된다. 
+- 결과 
+``` terminal
+10
+```
+#### 팩토리 생성자
+
+- 팩토리 생성자는 클라스의 인스턴스를 반환하지만 새로운 인스턴스를 생성할 필요는 없다. 이미 존재하는 인스턴스나 하위 (자식)클라스의 인스턴스를 반환할 수 있다.
+- Factory method는 부모(상위) 클래스에 알려지지 않은 구체 클래스를 생성하는 패턴이며. 자식(하위) 클래스가 어떤 객체를 생성할지를 결정하도록 하는 패턴이기도 하다.
+- 인스턴스 변수가 아닌  클래스 변수를 사용하므로 생성자 없이도 접근이 가능하다. 
+
+__팩토리 생성자를 위한 규칙__
+   - `return` 키워드를 사용할 것
+   - 팩토리 생성자 내에서는 `this`를 사용할 수 없다.
+
+- 예제
+
+``` dart
+class Cat {
+    String name;
+    String color;
+
+    Cat({required this.name, required this.color});
+
+    // factory constructor that returns a new instance
+    factory Cat.fromJson(Map json) {
+        return Cat(name : json['name'],
+        color : json['color']);
+    }
+}
+
+void main(){
+
+    Map mew = {'name': 'kitty', 'color': 'orange'};
+
+    Cat purr = Cat.fromJson(mew);
+    print(purr.name);
+    print(purr.color);
+
+}
+```
+- 결과
+``` consol
+kitty
+orange
+```
 
 ### 참고 자료
 
