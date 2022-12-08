@@ -8,7 +8,11 @@ toc: true
 
 ## Class와 객체 지향 프로그래밍(OOP)
 
-### Class 란?
+다트는 클라스와 mixin기반상속을 가지는 객체지향 언어이다. 모든 객체는 클라스의 인스턴스이고 널(Null)이 아닌 모든 클라스는 기본 객체(Object)로부터 내려온다.  
+mixin기반 상속이란 '모든 클라스가 정확히 하나의 부모 클라스를 가짐에도 불구하고 하나의 클라스 몸체는 여러 클라스 계층에서 재 사용될 수 있다'는 것을 의미한다. 
+확장방법(Extension methods)은 클라스를 변경하거나 하위클라스를 생성하지 않고도 클라스에 기능을 부여하는 방법을 제공한다. 
+
+
 
 - 객체 지향 프로그래밍(OOP)에서 특정 객체를 생성하기 위해 그 객체의 여러 특성(속성,변수)과 기능(메소드)들을 정의하여 묶어놓은 일종의 템플리트(template)이다.
 
@@ -18,6 +22,28 @@ toc: true
 
 - 서브클래스는 자신만의 메소드와 변수를 정의할 수도 있다.
 이러한 클래스와 그 서브클래스 간의 구조를 "클래스 계층(hierarchy)"이라 한다.
+
+#### 클라스멤버의 사용 (using class members)
+  
+  객체는 함수(메소드)와 데이타(인스턴스 변수)로 구성된 멤버(members)를 가진다. 메소드를 호출하면 이것은 객체위에서 그것을 호출한 것이다.: 그 객체의 함수와 데이타에 접근하게 된 것이다.  
+  인스턴스의 변수나 메소드를 참조하려면 dot(.)를 사용한다. 
+``` dart
+
+var p = Point(2, 2); // Point는 dart에서 기본 제공되는 2차원 (직교좌표 )위치 표현방법이다. 
+
+// Get the value of y.
+assert(p.y == 2);
+
+// Invoke distanceTo() on p.
+double distance = p.distanceTo(Point(4, 4));
+```
+
+#### __?__ 를 사용하여 null 오류를 회피한다. 
+
+``` dart
+// If p is non-null, set a variable equal to its y value.
+var a = p?.y;
+```
 
 ### 객체 지향 프로그래밍의 특징
 
@@ -60,25 +86,62 @@ nora.color = 'Orange';
 
 `Cat nora` 이렇게 변수명 앞에 `Cat`이라고 쓰는 것은 일종의 __변수type__ 선언이다. 하지만 `var nora` 라고 선언할 수도 있다.
 
-### 생성자 (constructor)
+#### Instance variables
+인스턴스 변수를 선언하는 방법을 알라보자
+``` dart{
+  double? x; // Declare instance variable x, initially null.
+  double? y; // Declare y, initially null.
+  double z = 0; // Declare z, initially 0.
+}
+```
+초기화하지 않는 모든 변수는 null값을 가진다.
+모든 인스턴스 변수는 절대적인 gertter 메소드를 생성한다. non-final 인스턴스변수와 초기화하지않은 late final 인스턴스 변수는 setter 메소드를 생성한다. 상세한 것은 getters - setters 에서 다룬다.
+만일 non-late 인스턴스 변수를 선언하면서 초기화 하면 그 값은 인스턴스가 생성될 때 (생성자 앞에서 초기화 리스트가 샐행될 때) 결정된다. 
 
-Class 에는 항상 생성자가 따라 다닌다. 생성자는 미리 결정된 속성값을 가지고 객체들을 생성한다. class로부터 객체가 생성될때 (인스턴스화 할때) 호출되기 때문에 생성자라고 이름지어졌다.
+``` dart
+class Point {
+  double? x; // Declare instance variable x, initially null.
+  double? y; // Declare y, initially null.
+}
+
+void main() {
+  var point = Point();
+  point.x = 4; // Use the setter method for x.
+  assert(point.x == 4); // Use the getter method for x.
+  assert(point.y == null); // Values default to null.
+}
+```
+인스턴 변수는 __final__  이 될 수 있고 이 경우 반드시 한번 만 지정해야 한다. 
+__final__ , __non-late__ 인스턴스 변수를 선언할 때 생성자 파라메터를 이용하거나 생성자의 초기화 리스트를 이용하여 초기화한다. 
+
+```dart
+class ProfileMark {
+  final String name;
+  final DateTime start = DateTime.now();
+
+  ProfileMark(this.name);
+  ProfileMark.unnamed() : name = '';
+}
+```
+만일 생성자 몸체를 시작한 이후에 __final__ 인스턴스 변수를 지정하고 싶다면  다음 중 한가지방법을 새용할 수 있다.
+
+- 팩토리 생성자를 이용한다. 
+- __late final__  인스턴스 변수를 세심하게 이용한다.: API에 초기화 지정자 없이 __late final__ 넣어 준다. 
+
+
+#### 생성자 (constructor)
+
+Class이름과 동일한 이름을 가지는 함수(메소드)를 생성하는 방법으로 선언(생성)된다.  생성자를 이용하여 객체를 생성한다.  생성자는 미리 결정된 속성값을 가지고 객체들을 생성한다. 
 ` 생성자에는 표준 생성자(standard constructor,default constructor), 이름있는 생성자(Named constructor),팩토리 생성자(factory constructor) 등의 종류가 있다. 
 이외에도 초기화 리스트(initializer list), 리다이렉팅 생성자(redirecting constructor), 상수 생성자(constant constructor) 등의 개념을 알아두어야한다.
 
 
 #### 기본 생성자(default constructor)
 
-class를 선언할 때 생성자를 선언하지 않으면 기본생성자가 자동으로 제공된다. Class 명과 동일한 이름을 가지며 매개변수(arguments)를 가지지 않는다. 
+class를 선언할 때 생성자를 선언하지 않으면 기본생성자가 자동으로 제공된다.  매개변수(arguments)를 가지지 않으며 부모클라스의 비매개변수 생성자를 호출한다.
 
-``` dart
-class 클래스명{
-    클래스명(){        // 생략된 것이지만 존재한다.
-    }
-}
-```
-
-#### 생성자의 상속
+#### 생성자는 생속되지 않는다.
+하위 클라스는 부모 클라스로부터 생성자를 상속받지 않는다. 생성자를 선언하디 않은 하위 클라스는 단지 기본 생성자(no argument, no name)를 가질 뿐이다. 
 
 ``` dart
 class Person{
@@ -106,7 +169,7 @@ This is Person Constructor!
 
 #### 이름 있는 생성자 (Named constructor)
 
-클라스 내에서 많은 생성자를 형성하거나 생성자를 명확히 하기위해 사용한다.
+클라스 내에서 많은 생성자를 형성하거나 생성자를 명확히 하기위해 Named constructor를 사용한다.
 
 ``` dart
 class 클래스명{
@@ -115,33 +178,65 @@ class 클래스명{
 
     }
 }
+
+const double xOrigin = 0;
+const double yOrigin = 0;
+
+class Point {
+  final double x;
+  final double y;
+
+  Point(this.x, this.y);
+
+  // Named constructor
+  Point.origin()
+      : x = xOrigin,
+        y = yOrigin;
+}
+
 ```
 
-이름없는 생성자는 단 한개만 가능하며 이름있는 생성자를 선언하면 기본생성자를 생략할 수 없다. 
-< 예제 >
+하위 클라스는 부모 클라스로부터 생성자를 상속받지 않는다는 점을 상기 할때 부모 클라스의 이름있는 생성자라도 자식 클라스에서 사용하기 위해서는 자식 클라스에서 생성자로 선언해 주어야 한다. 
 
-``` dart
-class Person{
-    Person(){
-        print('This is Person Constructor!');
-    }
+#### Invoking a non-default superclass constructor 
 
-    Person.init(){
-        print('This is Person.init Constructor!');
-    }
-}
+기본적으로 자식 클라스에서 생성자는 부모 클라스의 이름없는 생성자를 호출한다. 부모 클라스의 생성자는 생성자 본체가 시작할때 호출된다. 초기화 리스트가 사용된 경우 부모 클라스가 호출되기 전에 실행된다. 
 
-Class Student extends Person{
-    print(' This is Student Constructor!');
-    
-}
+종합해서 실행 순서를 살펴보면 아래와 같다. 
 
-main(){
-    var person = Person();
-    var init = Person.init();
-}
+- 초기화 리스트
+- 부모 클라스의 no-arg 생성자
+- 주 클라스(자식 클라스)의 no-arg 생성자
+
+만일 부모 클라스에 이름없는 생성자가 없다면 반드시 부모클라스의 생성자 중에 하나를 수동적으로 호출해주어야만 한다. 생성자 몸체 바로 앞에서 콜론(:)을 붙이고 뒤에 부모 클라스생성자를 지정한다.
+
 ```
+class Person {
+  String? firstName;
 
+  Person.fromJson(Map data) {
+    print('in Person');
+  }
+}
+
+class Employee extends Person {
+  // Person does not have a default constructor;
+  // you must call super.fromJson().
+  Employee.fromJson(super.data) : super.fromJson() {
+    print('in Employee');
+  }
+}
+
+void main() {
+  var employee = Employee.fromJson({});
+  print(employee);
+  // Prints:
+  // in Person
+  // in Employee
+  // Instance of 'Employee'
+}
+
+```
 
 ### 리다이렉팅 생성자
 
