@@ -140,7 +140,7 @@ Class이름과 동일한 이름을 가지는 함수(메소드)를 생성하는 �
 
 class를 선언할 때 생성자를 선언하지 않으면 기본생성자가 자동으로 제공된다.  매개변수(arguments)를 가지지 않으며 부모클라스의 비매개변수 생성자를 호출한다.
 
-#### 생성자는 생속되지 않는다.
+#### 생성자는 상속되지 않는다.
 하위 클라스는 부모 클라스로부터 생성자를 상속받지 않는다. 생성자를 선언하디 않은 하위 클라스는 단지 기본 생성자(no argument, no name)를 가질 뿐이다. 
 
 ``` dart
@@ -237,71 +237,108 @@ void main() {
 }
 
 ```
-
-### 리다이렉팅 생성자
-
-초기화리스트를 응용하면 단순히 리다이렉팅을 위한 생성자를 만들 수 있다. 본체가 비어있고 메인 생성자에게 위임하는 역할을 한다.
+수퍼 클라스 생성자에 대한 인수는 생성자 호출 전에 값이 정해 지기 때문에 평가되기 때문에 인자는 마치 함수에서의 호출인 것같은 표현이 된다. 
 
 ``` dart
-class Person{
-    String name;
-    int age;
-    Person (this.name, this,age){
-        print('This is Person($name, $age) Constructor!'  );
-    }
-
-    Person.initName(String name) : this (name,20);
+class Employee extends Person {
+  Employee() : super.fromJson(fetchDefaultData());
+  // ···
 }
 
-main(){
-    var person = Person.initName('Kim');
-
-}
 ```
-결과
-``` terminal
- This is Person(Kim, 20) Constructor!
-```
-이름있는 생성자인 Person.initName(String name)은 본체가 없고 초기화 리스트로 this(name,20)가 선언되어있다. this 는 현재의 인스턴스를 가리키므로 여기서 this(name,20)은 현재인스턴스의 생성자인 Person(this.name, this.age)가 된다. 따라서 Person.initName('Kim')을 호출하면 Person()의 인자로 쓰인 this.name은 현재 인스턴스의 name을 의미하므로 Person(this.name, this.age)의 인자로 Person.initName('Kim')에서 받은 Kim과 20이 할당된다. 
 
-
-#### 상수 생성자
-class 멤버 변수 앞에서 final을 선언하면 상수처럼 변하지 않는 객체를 생성한다. 이를 상수 생성자라고 부르며 생성자앞에 const 를 붙여 주어야 한다. 
+부모 생성자의 호출하기 위해 각 매개변수를 수동으로 전달하지 않으려면 수퍼 이니셜라이저 매개변수를 사용하여 지정된 또는 기본 수퍼클래스 생성자로 매개변수를 전달할 수 있다. 
+다만 이방법은 리디렉션 생성자와 함께 사용할 수 없다.  수퍼 이니셜라이저 매개변수는 정식 매개변수 초기화와 유사한 구문 및 의미 체계를 갖는다.
 
 ``` dart
-class Rectangle {
-  // these are assigned in the constructor,
-  // and can never be changed.
-  final int width;
-  final int height;
-  const Rectangle(this.width, this.height);
+class Vector2d {
+  final double x;
+  final double y;
+
+  Vector2d(this.x, this.y);
 }
 
-main (){
-  
-  Rectangle rec1 = const  Rectangle(20, 30);
-  Rectangle rec2 = const  Rectangle(20, 30);
-  Rectangle rec3 = new  Rectangle(20, 30);
-  Rectangle rec4 = new  Rectangle(20, 30);
-  
-  print (identical (rec1,rec2));
-  print (identical (rec2,rec3));
-  print (identical (rec3,rec4));
-}
-```
-실행 결과
+class Vector3d extends Vector2d {
+  final double z;
 
-``` consol
-true
-false
-false
+  // Forward the x and y parameters to the default super constructor like:
+  // Vector3d(final double x, final double y, this.z) : super(x, y);
+  Vector3d(super.x, super.y, this.z);
+}
+
 ```
-`rec1`과 `rec2`완전히 동일한 인스턴스를 참조하고있기떄문에 참 값이 반환되었지만  나머지는 모두 별개의  인스턴스를 생성하고 있어서 참이 아니다.
+
+수퍼 생성자 호출에 이미 위치한 매개변수가 있는 경우 수퍼 이니셜라이저 매개변수가 위치할 수 없지만 항상 다음과 같이 __named__ 를 활용할 수 있다.
+
+```
+class Vector2d {
+  // ...
+
+  Vector2d.named({required this.x, required this.y});
+}
+
+class Vector3d extends Vector2d {
+  // ...
+
+  // Forward the y parameter to the named super constructor like:
+  // Vector3d.yzPlane({required double y, required this.z})
+  //       : super.named(x: 0, y: y);
+  Vector3d.yzPlane({required super.y, required this.z}) : super.named(x: 0);
+}
+
+```
 
 ### 초기화 리스트 
 
-최기화 리스트를 사용하면 인스턴스가 생성될 때 생성자의 구현부가 실행되기 전에 인스턴스 변수를 초기화 할 수 있다. 
-생성자 옆에서 콜론(:)을 붙여 선언한다.
+슈퍼클래스 생성자를 호출하는 것 말고도 생성자 본문이 실행되기 전에 인스턴스 변수를 초기화할 수 있다.생성자 옆에서 콜론(:)을 붙여 선언한다. 쉼표(콤마 ,)로 복수의 이니셜라이저를 구분합니다.
+
+```
+// Initializer list sets instance variables before
+// the constructor body runs.
+Point.fromJson(Map<String, double> json)
+    : x = json['x']!,
+      y = json['y']! {
+  print('In Point.fromJson(): ($x, $y)');
+}
+
+```
+개발과정에서 이니셜라이저 리스트 __assert__을 사용하면 입력의 유효성을 검사할 수 있다.
+
+``` dart
+Point.withAssert(this.x, this.y) : assert(x >= 0) {
+  print('In Point.withAssert(): ($x, $y)');
+}
+
+```
+이니셜라이저 리스트는 최종 필드를 설정할 때 편리합니다. 다음 예제는 이니셜라이저 리스트에서 세 개의 최종 필드를 초기화한다.
+
+
+``` dart
+import 'dart:math';
+
+class Point {
+  final double x;
+  final double y;
+  final double distanceFromOrigin;
+
+  Point(double x, double y)
+      : x = x,
+        y = y,
+        distanceFromOrigin = sqrt(x * x + y * y);
+}
+
+void main() {
+  var p = Point(3, 4);
+  print(p.distanceFromOrigin);
+}
+
+```
+실행 결과
+``` console
+5
+```
+
+(최기화 리스트를 사용하면 인스턴스가 생성될 때 생성자의 구현부가 실행되기 전에 인스턴스 변수를 초기화 할 수 있다. )
 
 ``` dart
 main() {
@@ -324,49 +361,93 @@ class Rectangle {
 ``` terminal
 10
 ```
-#### 팩토리 생성자
 
-- 팩토리 생성자는 클라스의 인스턴스를 반환하지만 새로운 인스턴스를 생성할 필요는 없다. 이미 존재하는 인스턴스나 하위 (자식)클라스의 인스턴스를 반환할 수 있다.
-- Factory method는 부모(상위) 클래스에 알려지지 않은 구체 클래스를 생성하는 패턴이며. 자식(하위) 클래스가 어떤 객체를 생성할지를 결정하도록 하는 패턴이기도 하다.
-- 인스턴스 변수가 아닌  클래스 변수를 사용하므로 생성자 없이도 접근이 가능하다. 
 
-__팩토리 생성자를 위한 규칙__
-   - `return` 키워드를 사용할 것
-   - 팩토리 생성자 내에서는 `this`를 사용할 수 없다.
 
-- 예제
+### 리다이렉팅 생성자
+
+때로는 생성자의 유일한 목적은 동일한 클래스의 다른 생성자로 리디렉션하는 것이될 떄가 있다. 리디렉션하는 생성자의 본문은 비어 있으며 생성자 호출(클래스 이름 대신 this 사용)은 콜론(:) 뒤에 나타납니다.
+
+
 
 ``` dart
-class Cat {
-    String name;
-    String color;
+class Point {
+  double x, y;
 
-    Cat({required this.name, required this.color});
+  // The main constructor for this class.
+  Point(this.x, this.y);
 
-    // factory constructor that returns a new instance
-    factory Cat.fromJson(Map json) {
-        return Cat(name : json['name'],
-        color : json['color']);
-    }
-}
-
-void main(){
-
-    Map mew = {'name': 'kitty', 'color': 'orange'};
-
-    Cat purr = Cat.fromJson(mew);
-    print(purr.name);
-    print(purr.color);
-
+  // Delegates to the main constructor.
+  Point.alongXAxis(double x) : this(x, 0);
 }
 ```
-- 결과
-``` consol
-kitty
-orange
+
+#### 상수 생성자
+
+클래스가 절대 변경되지 않는 객체를 생성하는 경우 이러한 객체를 컴파일 타임 상수로 만들 수 있습니다. 이렇게 하려면 const 생성자를 정의하고 모든 인스턴스 변수가 최종(final) 변수인지 확인합니다.
+
+``` dart
+class ImmutablePoint {
+  static const ImmutablePoint origin = ImmutablePoint(0, 0);
+
+  final double x, y;
+
+  const ImmutablePoint(this.x, this.y);
+}
+
 ```
+상수 생성자가 항상 상수를 생성하는 것은 아다. 자세한 내용은 생성자의 사용 섹션을 참조하자.
+
+#### 팩토리 생성자
+
+항상 해당 클래스의 새 인스턴스를 생성하지 않는 생성자를 구현하고 싶을 때 factory 키워드를 사용한다. 예를 들어 팩토리 생성자는 캐시(이미 존재하는 인스턴스)에서 인스턴스를 반환하거나 하위 유형의 인스턴스를 반환할 수 있습니다. 또 다른 사용 사례는 초기화 리스트에서 처리할 수 없는 논리를 사용하여 최종 변수를 초기화하는 것이다.
+
+다음 예제에서 __Logger__ 팩터리 생성자는 캐시에서 개체를 반환하고 __Logger.fromJson__ 팩터리 생성자는 __JSON__ 개체에서 최종 변수를 초기화한다.
+
+``` dart
+
+class Logger {
+  final String name;
+  bool mute = false;
+
+  // _cache is library-private, thanks to
+  // the _ in front of its name.
+  static final Map<String, Logger> _cache = <String, Logger>{};
+
+  factory Logger(String name) {
+    return _cache.putIfAbsent(name, () => Logger._internal(name));
+  }
+
+  factory Logger.fromJson(Map<String, Object> json) {
+    return Logger(json['name'].toString());
+  }
+
+  Logger._internal(this.name);
+
+  void log(String msg) {
+    if (!mute) print(msg);
+  }
+}
+
+```
+```
+주의 : 팩토리 생성자는 __this__ 에 접근할 수 없다.
+```
+다른 생성자에서 처럼 팩토리 생성자를 호출한다.
+
+``` dart
+var logger = Logger('UI');
+logger.log('Button clicked');
+
+var logMap = {'name': 'UI'};
+var loggerJson = Logger.fromJson(logMap);
+
+```
+
 
 ### 참고 자료
+
+- https://dart.dev/guides/language/language-tour 
 
 -  '플러터를 위한 다트언어'  서준수    브런치북
 -  유튜브 [왕초보 무료 프로그래밍 언어 강의] [Dart] #17 - Class [#1] 선언 및 Constructor (https://youtu.be/9NSlc_CRiLI )
