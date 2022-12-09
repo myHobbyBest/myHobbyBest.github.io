@@ -444,6 +444,119 @@ var loggerJson = Logger.fromJson(logMap);
 
 ```
 
+### Methods (메소드)
+
+메서드는 개체에 작용(기능)을 부여하는 함수이다.
+
+ - #### 인스턴스 메서드(Instance methods)
+
+객체의 인스턴스 메서드는 인스턴스 변수와 __this__ 에 액세스할 수 있다. 다음 예제의 distanceTo() 메서드는 인스턴스 메서드의 사례이다.
+
+``` dart
+import 'dart:math';
+
+class Point {
+  final double x;
+  final double y;
+
+  Point(this.x, this.y);
+
+  double distanceTo(Point other) {
+    var dx = x - other.x;
+    var dy = y - other.y;
+    return sqrt(dx * dx + dy * dy);
+  }
+}
+
+```
+
+ - #### 연산자 (Operators)
+
+ 연산자는 특별한 이름을 가진 인스턴스 메서드이다. Dart를 사용하면 다음 이름으로 연산자를 정의할 수 있다.
+| < | + | `|` | >>> |
+|----|----|---|----|
+|  >  |  	/  | ^   |  []  | 
+|<= |	~/	| &	| []= |
+| >=	| *	|<< |	~ |
+| - |	%	|  >> |	== |
+
+- 주의 : != 와 같은 일부 연산자는 이름 목록에 없다. 그것들은 단지 문법적 조미료(syntactic sugar)이기 때문입니다. 예를 들어, e1 != e2 표현식은 !(e1 == e2)에 대한  문법적 조미료이다.
+
+연산자의 선언은 내장 (built-in) 식별자 연산자를 사용하여 식별됩니다. 다음 예에서는 벡터 더하기(+), 빼기(-) 및 동일성(==)을 정의한다.
+
+``` dart
+class Vector {
+  final int x, y;
+
+  Vector(this.x, this.y);
+
+  Vector operator +(Vector v) => Vector(x + v.x, y + v.y);
+  Vector operator -(Vector v) => Vector(x - v.x, y - v.y);
+
+  @override
+  bool operator ==(Object other) =>
+      other is Vector && x == other.x && y == other.y;
+
+  @override
+  int get hashCode => Object.hash(x, y);
+}
+
+void main() {
+  final v = Vector(2, 3);
+  final w = Vector(2, 2);
+
+  assert(v + w == Vector(4, 5));
+  assert(v - w == Vector(0, 1));
+}
+```
+
+- #### 게터와 세터 (Getters and setters)
+
+Getter 및 Setter는 개체의 속성에 대한 읽기 및 쓰기 액세스를 제공하는 특수 메서드이다. 각 인스턴스 변수에는 암시적 getter와 적절한 경우 setter가 있음을 기억한다. get 및 set 키워드를 사용하여 getter 및 setter를 구현하여 추가 속성을 만들 수 있다.
+
+``` dart
+
+class Rectangle {
+  double left, top, width, height;
+
+  Rectangle(this.left, this.top, this.width, this.height);
+
+  // Define two calculated properties: right and bottom.
+  double get right => left + width;
+  set right(double value) => left = value - width;
+  double get bottom => top + height;
+  set bottom(double value) => top = value - height;
+}
+
+void main() {
+  var rect = Rectangle(3, 4, 20, 15);
+  assert(rect.left == 3);
+  rect.right = 12;
+  assert(rect.left == -8);
+}
+```
+getter 및 setter를 사용하면 클라이언트 코드를 변경하지 않고도 인스턴스 변수로 시작하여 나중에 메서드로 포장(wrapping)할 수 있다.
+
+- 주의 : __++__ 과 같은 연산자는 getter가 명시적으로 정의되었는지 여부에 관계없이 예상대로 작동한다. 예상치 못한 부작용을 피하기 위해 연산자는 getter를 정확히 한 번 호출하여 해당 값을 임시 변수에 저장한다.
+
+- #### Abstract methods (추상 메서드)
+
+인스턴스, getter 및 setter 메서드는  인터페이스를 정의하여 추상화할 수 있지만  해당 구현은 다른 클래스에 맡깁니다. 추상 메서드는 추상 클래스에만 존재할 수 있습니다.
+
+``` dart
+abstract class Doer {
+  // Define instance variables and methods...
+
+  void doSomething(); // Define an abstract method.
+}
+
+class EffectiveDoer extends Doer {
+  void doSomething() {
+    // Provide an implementation, so the method is not abstract here...
+  }
+}
+
+```
 
 ### 참고 자료
 
