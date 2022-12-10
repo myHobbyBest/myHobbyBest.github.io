@@ -1,5 +1,5 @@
 ---
-title:  "Libraries and visibility "  
+title:  "라이브러리 와 가시성(Libraries and visibility)"  
 date:   2022-12-10 16:03:09 +0900
 categories: [Flutter, Dart]
 tag: [Libraries, visibility]
