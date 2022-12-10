@@ -1,7 +1,7 @@
 ---
 title:  "Dart문법(1) - type, null-safty, loop"  
 date:   2022-11-04 23:00:09 +0900
-categories: [Flutter, Dart syntax ]
+categories: [Flutter, Dart]
 tag: [type, null safty, loop ]
 toc: true
 ---

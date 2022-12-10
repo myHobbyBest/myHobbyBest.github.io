@@ -1,7 +1,7 @@
 ---
 title:  "Dart문법(4) - Map"  
 date:   2022-11-07 00:01:30 +0900
-categories: [Flutter, Dart syntax ]
+categories: [Flutter, Dart]
 tag: [map, Map.from() , Map.of()   ]
 toc: true 
 ---
