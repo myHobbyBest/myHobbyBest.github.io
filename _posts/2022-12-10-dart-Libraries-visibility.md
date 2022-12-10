@@ -1,7 +1,7 @@
 ---
 title:  "Libraries and visibility "  
 date:   2022-12-10 16:03:09 +0900
-categories: [Flutter, dart]
+categories: [Flutter, Dart]
 tag: [Libraries, visibility]
 toc: true
 ---
