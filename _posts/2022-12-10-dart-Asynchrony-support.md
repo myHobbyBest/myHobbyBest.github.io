@@ -92,3 +92,33 @@ futures, async, await 사용에 대한 대화형 소개는 asynchronous programm
 
 - async 와 비동기 for loop (await for)를 사용한다.
 -  library tour에 설명된 대로 Stream API를 사용한다.
+
+(주: await for를 사용하기 전에 코드가 더 명확해지는지 스트림의 모든 결과를 정말로 기다리고 싶은지 확인한다. 예를 들어 UI 프레임워크는 끝없는 이벤트 스트림을 보내기 때문에 일반적으로 UI 이벤트 리스너에 대해 await for를 사용하면 안된다.)
+
+비동기 for loop 의 형식은 다음과 같다.
+
+``` dart
+await for (varOrType identifier in expression) {
+  // Executes each time the stream emits a value.
+}
+```
+expression의 값은 Stream 유형이어야 한다. 실행은 다음과 같이 진행된다.
+
+1. 스트림이 값을 내보낼 때까지 기다린다.
+2. 내보낸 값으로 설정된 변수를 사용하여 for 루프의 본문을 실행한다.
+3. 스트림이 닫힐 때까지 1과 2를 반복한다.
+
+스트림 수신을 중지하려면 for loop 를 중단하고 스트림 구독을 취소하는 break 또는 return 문을 사용할 수 있다.
+
+비동기 for loop 를 구현할 때 컴파일 타임 오류가 발생하면 await for가 async 함수에 있는지 확인한다. 예를 들어 앱의 main() 함수에서 비동기 for loop를 사용하려면 main() 본문을 async로 표시해야 한다.
+
+``` dart
+void main() async {
+  // ...
+  await for (final request in requestServer) {
+    handleRequest(request);
+  }
+  // ...
+}
+```
+일반적으로 비동기 프로그래밍에 대한 자세한 내용은 the library tour 의 dart:async 섹션을 참조하자.
