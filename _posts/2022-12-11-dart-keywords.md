@@ -8,7 +8,7 @@ toc: true
 ### Keywords
 
 
-![key words](../images/2022-12-11/2022-12-11-ketwords.png)
+![key words](../images/2022-12-11/2022-12-11-keywords.png)
 
 키워드를 구성하는 단어를 식별자로 사용하지 않아야한다. 그러나 필요한 경우 위첨자로 표시된 키워드는 식별자가 될 수 있다.
 
