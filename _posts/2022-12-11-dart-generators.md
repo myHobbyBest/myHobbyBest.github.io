@@ -11,11 +11,31 @@ toc: true
 
 - 동기 제너레이터: Iterable 객체를 반환한다.
 - 비동기 제너레이터: Stream 개체를 반환한다.
-동기식 제너레이터 함수를 구현하려면 함수 본문을 sync*로 표시하고 yield 문을 사용하여 값을 전달한다.
+동기식 제너레이터 함수를 구현하려면 함수 본문을 ``sync*``로 표시하고 yield 문을 사용하여 값을 전달한다.
 
 ``` dart
 Iterable<int> naturalsTo(int n) sync* {
   int k = 0;
   while (k < n) yield k++;
+}
+```
+
+비동기 생성기 함수를 구현하려면 함수 본문을 ``async*``로 표시하고 yield 문을 사용하여 값을 전달한다.
+
+``` dart
+Stream<int> asynchronousNaturalsTo(int n) async* {
+  int k = 0;
+  while (k < n) yield k++;
+}
+```
+
+생성기가 재귀적이라면 ``yield*``를 사용하여 성능을 향상시킬 수 있다.
+
+``` dart
+Iterable<int> naturalsDownFrom(int n) sync* {
+  if (n > 0) {
+    yield n;
+    yield* naturalsDownFrom(n - 1);
+  }
 }
 ```
