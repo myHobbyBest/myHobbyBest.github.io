@@ -8,17 +8,17 @@ toc: true
 
 ### 제네릭 (Generics)
 
-기본 배열 유형인 List에 대한 API 설명서를 보면 유형이 실제로 List<E>임을 알 수 있다.  __<…>__  표기법은 List 를 정규 유형 매개변수를 가지는 generic(또는 매개변수화된) type으로 표시합니다. 규칙에 따라 대부분의 type 변수는 E, T, S, K 및 V와 같은 단일 문자 이름이 있다.
+기본 배열 유형인 List에 대한 API 설명서를 보면 유형이 실제로 List<E>임을 알 수 있다.  <…>  표기법은 List 를 정규 유형 매개변수를 가지는 generic(또는 매개변수화된) type으로 표시한다. 규칙에 따라 대부분의 type 변수는 E, T, S, K 및 V와 같은 단일 문자 이름이 있다.
 
 
 - #### 제네릭을 사용하는 이유?
 
-제네릭은 유형 안전성을 위해 종종 필요하다. 하지만 그저 코드 실행을 허용하는 것보다 더 많은 이점이 있다.
+유형 안전성을 위해 종종 제네릭이 필요하다. 하지만 그저 코드 실행을 허용하는 것보다 더 많은 이점이 있다.
 
 - 제네릭 형식을 올바르게 지정하면 코드가 더 잘 생성된다.
 - 제네릭을 사용하여 코드 중복을 줄일 수 있다.
 
-List에 문자열만 포함하려는 경우  List<String>으로 선언할 수 있다("문자열 리스"이라고 읽음). 이렇게 하면 본인이나  동료 프로그래머, 그리고 본인의 도구가 문자열이 아닌 것을 List에 할당하는 것이 실수일 가능성이 있음을 미리 감지할 수 있다. 예를 들면 다음과 같다.
+List에 문자열 만 포함하려는 경우  ``List<String>``으로 선언할 수 있다("문자열 리스트"라고 읽음). 이렇게 하면 본인이나  동료 프로그래머, 그리고 본인의 도구(IDE ?)가 문자열이 아닌 것을 List에 할당하는 것이 실수일 가능성이 있음을 미리 감지할 수 있다. 예를 들면 다음과 같다.
 
 ``` dart
 // static analysis : error/warning
@@ -27,14 +27,13 @@ names.addAll(['Seth', 'Kathy', 'Lars']);
 names.add(42); // Error
 ```
 
-제네릭을 사용하는 또 다른 이유는 코드 중복을 줄이기 위해서이다. 제네릭을 사용하면 정적 분석의 잇점을 계속 활용하면서 단일 인터페이스로 여러 유형 간에 implementation(구현)을 공유할 수 있다. 예를 들어 객체 캐싱을 위한 인터페이스를 생성한다고 가정해 보자.
+제네릭을 사용하는 또 다른 이유는 코드 중복을 줄이기 위해서이다. 제네릭을 사용하면 정적해석의 잇점을 계속 활용하면서 단일 인터페이스로 여러 유형 간에 implementation(구현)을 공유할 수 있다. 예를 들어 객체 캐싱을 위한 인터페이스를 생성한다고 가정해 보자.
 
 ``` dart
 abstract class ObjectCache {
   Object getByKey(String key);
   void setByKey(String key, Object value);
 }
-
 ```
 
 이 인터페이스의 문자열-특성 버전이 필요하다는 사실을 발견하고 또 다른 인터페이스를 생성하게 된다.
@@ -54,9 +53,70 @@ abstract class Cache<T> {
   T getByKey(String key);
   void setByKey(String key, T value);
 }
-
 ```
-이 코드에서 T는 스탠드인 유형이다. 나중에 개발자가 정의할 유형으로 생각할 수 있는 placeholder (자리 표시자?) 이다.
+
+이 코드에서 T는 스탠드인(stand-in) 유형이다. 나중에 개발자가 정의할 유형으로 생각할 수 있는 placeholder (자리 표시자?) 이다.
+
+---
+- #### 유형 매개변수의 이름을 지정할 때 기존 니모닉 규칙을(mnemonic conventions) 따르자.
+
+(별개의 페이지에 설명된 매개변수 이름 지정 방법을 알아보았다.)
+
+단일 문자 이름은 정확히 조명되지 않지만 거의 모든 일반 유형에서 사용합니다. 다행히도 그들은 대부분 일관되고 기억하기 쉬운 방식으로 사용합니다. 규칙은 다음과 같다.
+
+- E : 컬렉션(List)에서 엘리먼트( __elememt__ ) 유형 ( the element type in a collection)
+
+``` dart
+class IterableBase<E> {}
+class List<E> {}
+class HashSet<E> {}
+class RedBlackTree<E> {}
+```
+
+- K, V : 연관 컬렉션(map)의 키( __key__ ) 및 값( __value__ ) 유형:
+
+``` dart
+class Map<K, V> {}
+class Multimap<K, V> {}
+class MapEntry<K, V> {}
+```
+
+- R : 함수 또는 클래스의 메서드의 반환( __return__ ) 유형으로 사용되는 유형이다. 이것은 일상적이지는 않지만 가끔 typedefs와 방문자 패턴을 구현하는 클래스에 나타난다.
+
+``` dart
+abstract class ExpressionVisitor<R> {
+  R visitBinary(BinaryExpression node);
+  R visitLiteral(LiteralExpression node);
+  R visitUnary(UnaryExpression node);
+}
+```
+
+-  T, S, and U : 단일 유형 매개변수가 있고 주변 유형이 그 의미를 명확하게 만드는 제네릭에 사용한다. 여기에는 주변 이름을 가리지(shadowing) 않고 중첩할 수 있도록 여러 문자가 허용된다. 아래 예제를 참고하자.
+
+``` dart
+class Future<T> {
+  Future<S> then<S>(FutureOr<S> onValue(T value)) => ...
+}
+```
+
+여기서 일반 메서드 ``then<S>()`` 는 S를 사용하여 Future<T>에서 T를 가리지 않도록 한다.
+위의 경우 중 어느 것도 적합하지 않은 경우 다른 단일 문자 니모닉 이름이나 설명이 포함된 이름을 사용한다. 
+
+``` dart
+class Graph<N, E> {
+  final List<N> nodes = [];
+  final List<E> edges = [];
+}
+
+class Graph<Node, Edge> { // 설명이 포함된 이름
+  final List<Node> nodes = [];
+  final List<Edge> edges = [];
+}
+```
+
+실제로 이 규칙(conventions)은 대부분의 유형 매개변수를 포괄한다.
+
+---
 
 - #### Using collection literals
 
