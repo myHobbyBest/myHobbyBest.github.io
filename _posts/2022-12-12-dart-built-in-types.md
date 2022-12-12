@@ -193,3 +193,198 @@ const validConstString = '$aConstNum $aConstBool $aConstString';
 ```
 문자열 사용에 대한 자세한 내용은 Strings and regular expressions 을 참조한다.
 
+- #### Booleans
+
+불리언 값을 나타내기 위해 Dart에는 bool이라는 유형이 있다. 부울 리터럴 true 과 false 두 개체만 bool 유형을 갖는다. 둘 다 컴파일 타임 상수이다.
+
+Dart의 유형 안전성(type safety)이란 `if(nonbooleanValue)`또는 `assert(nonbooleanValue)`와 같은 코드를 사용할 수 없음을 의미한다. 대신 다음과 같이 명시적으로 값을 확인한다.
+
+``` dart
+// 빈 문자열을 확인한다.
+var 전체 이름 = '';
+assert(fullName.isEmpty);
+
+// 0인지 확인한다.
+var hitPoints = 0;
+assert(hitPoints <= 0);
+
+// null을 확인한다.
+var 유니콘;
+assert(유니콘 == null);
+
+// NaN을 확인한다.
+var iMeantToDoThis = 0 / 0;
+assert(iMeantToDoThis.isNaN);
+```
+
+- #### List
+
+아마도 거의 모든 프로그래밍 언어에서 가장 일반적인 컬렉션은 __배열(array)__ 또는 __정렬된 객체 그룹__ 일 것이다. Dart에서 배열은 List 객체이므로 대부분의 사람들은 배열을 List 이라고 부른다.
+
+Dart의 List 리터럴은 쉼표로 구분된 표현식 또는 값의 목록을 대괄호(`[]`)로 묶어서 표시한다. 다음은 간단한 Dart List이다.
+
+```dart
+var list = [1, 2, 3];
+```
+
+(참고: Dart는 앞의 변수 `list` 가 `List<int>`유형이라고 추론한다. 정수가 아닌 개체를 이 `list` 에 추가하려고 하면 컴파일 또는 런타임에서 오류가 발생한다. 자세한 내용은 형식 유추(type inference) 를 참고한다.)
+
+Dart 컬렉션 리터럴의 마지막 항목 뒤에 쉼표를 추가할 수 있다. 이 후행 쉼표는 컬렉션에 영향을 주지 않지만 복사-붙여넣기 오류를 방지하는 데 도움이 될 수 있다.
+
+``` dart
+var list = [
+  'Car',
+  'Boat',
+  'Plane',
+];
+```
+`List`는 0부터 시작하는 인덱싱을 사용한다. 여기서 0은 첫 번째 값의 인덱스이고 `list.length - 1`은 마지막 값의 인덱스이다. `.length` 속성을 사용하여 목록의 길이를 가져오고 첨자 연산자(`[]`)를 사용하여 `List`의 값에 액세스할 수 있다.
+
+``` dart
+var list = [1, 2, 3];
+assert(list.length == 3);
+assert(list[1] == 2);
+
+list[1] = 1;
+assert(list[1] == 1);
+```
+
+컴파일 시간 상수인 List를 만들려면 List 리터럴 앞에 const를 추가한다.
+
+``` dart
+var constantList = const [1, 2, 3];
+// constantList[1] = 1; // This line will cause an error.
+```
+Dart는 컬렉션에 여러 값을 삽입하는 간결한 방법을 제공하는 스프레드연산자  ( __spread operator__ ) ``...`` 및 null 인식 스프레드 연산자 ( __null-aware spread operator__ ) ``...?``를 지원한다.
+
+예를 들어 스프레드 연산자 ``...``를 사용하여 List의 모든 값을 다른 List에 삽입할 수 있다.
+
+``` dart
+var list = [1, 2, 3];
+var list2 = [0, ...list];
+assert(list2.length == 4);
+```
+스프레드 연산자 오른쪽에 있는 표현식이 null일 수 있는 경우 null 인식 스프레드 연산자(...?)를 사용하여 예외를 방지할 수 있다.
+
+``` dart
+var list2 = [0, ...?list];
+assert(list2.length == 1);
+```
+스프레드 연산자 사용에 대한 자세한 내용과 예는  spread operator proposal 을 참조한다. 
+
+Dart는 조건문(if) 및 반복(for)을 사용하여 컬렉션을 구축하는 데 사용할 수 있는 컬렉션 if 및 컬렉션 for도 제공한다.
+
+다음은 3개 또는 4개의 항목이 있는 List을 만들기 위해 collection if를 사용하는 예이다.
+
+``` dart
+var nav = ['Home', 'Furniture', 'Plants', if (promoActive) 'Outlet'];
+```
+
+다음은 다른 list에 항목을 추가하기 전에 list 항목을 조작하기 위해 collection for 를 사용하는 예이다.
+
+``` dart
+var listOfInts = [1, 2, 3];
+var listOfStrings = ['#0', for (var i in listOfInts) '#$i'];
+assert(listOfStrings[1] == '#1');
+```
+컬렉션 if 및 for 사용에 대한 자세한 내용과 예는  control flow collections proposal 을 참조한다.
+
+List 유형에는 list을 조작하기 위한 편리한 방법이 많이 있다. list에 대한 자세한 내용은  Generics 과 Collections 을 참조한다.
+
+- #### Sets
+
+Dart의 set는 단일항목의 정렬되지 않은 콜렉션이다. set세트에 대한 Dart 지원은 set 리터럴 및 set 유형에 의해 제공됩니다.
+
+다음은 set 리터럴을 사용하여 만든 간단한 Dart set이다.
+
+``` dart
+var halogens = {'fluorine', 'chlorine', 'bromine', 'iodine', 'astatine'};
+```
+
+(참고: Dart는 앞의 예에서  변수 halogens 이 `Set<String>` 유형이라고 추론합니다. set에 잘못된 유형의 값을 추가하려고 하면 디버거 또는 런타임에서 오류가 발생합니다. 자세한 내용은  type inference 에 대해 읽어보자.)
+
+텅빈 집합을 만들려면 {} 앞에 유형 인수를 쓰거하거나 {}를 Set 유형의 변수에 할당한다.
+
+```dart
+var names = <String>{};
+// Set<String> names = {}; // This works, too.
+// var names = {}; // Creates a map, not a set.
+```
+(참고: __set인가 map인가?__ : map 리터럴의 구문은 set 리터럴의 구문과 비슷하다. map 리터럴이 먼저 나왔기 때문에 `{}`는 기본적으로 map 유형이다. `{}`의 유형 주석이나 할당된 변수를 잊은 경우 Dart는 `Map<dynamic, dynamic>` 유형의 객체를 생성한다.)
+
+add() 또는 addAll() 메서드를 사용하여 기존 set에 항목을 추가한다.
+
+```dart
+var elements = <String>{};
+elements.add('fluorine');
+elements.addAll(halogens);
+```
+
+`.length`를 사용하여 set의 항목 수를 가져온다.
+
+```dart
+var elements = <String>{};
+elements.add('fluorine');
+elements.addAll(halogens);
+assert(elements.length == 5);
+```
+컴파일 시간 상수인 set을 만들려면 set 리터럴 앞에  `const`를 추가합니다.
+
+```dart
+final constantSet = const {
+  'fluorine',
+  'chlorine',
+  'bromine',
+  'iodine',
+  'astatine',
+};
+// constantSet.add('helium'); // This line will cause an error.
+```
+set는 list와 마찬가지로 스프레드 연산자(... 및 ...?)와 컬렉션 if 및 for를 지원한다. 자세한 내용은 list spread operator 와 list collection operator  토론을 참조한다.//요.
+
+set에 대한 자세한 내용은  Generics 과 Sets 참조한다.
+
+- #### Maps
+
+일반적으로 map은 키(key)와 값(value)을 연결하는 개체입니다. 키와 값 모두 모든 유형의 객체가 될 수 있다. 각 키는 한 번만 발생하지만 동일한 `vlaue`는 여러 번 사용할 수 있습니다. map에 대한 Dart의 지원은 map 리터럴과 map type에 의해 제공,된다.
+
+다음은 map 리터럴을 사용하여 만든 몇 가지 간단한 Dart map이다.
+
+``` dart
+var gifts = {
+  // Key:    Value
+  'first': 'partridge',
+  'second': 'turtledoves',
+  'fifth': 'golden rings'
+};
+
+var nobleGases = {
+  2: 'helium',
+  10: 'neon',
+  18: 'argon',
+};
+```
+(참고: 앞의 예에서 Dart는 변수 gifts 는 Map<String, String> 유형이고 변수 nobleGases는 Map<int, String> 유형이라고 추론합니다. map에 잘못된 유형의 값을 추가하려고 하면 디버거 또는 런타임에서 오류가 발생합니다. 자세한 내용은 type inference 에 대해 읽어보자.)
+
+Map 생성자를 사용하여 동일한 개체를 만들 수 있다.
+
+``` dart
+var gifts = Map<String, String>();
+gifts['first'] = 'partridge';
+gifts['second'] = 'turtledoves';
+gifts['fifth'] = 'golden rings';
+
+var nobleGases = Map<int, String>();
+nobleGases[2] = 'helium';
+nobleGases[10] = 'neon';
+nobleGases[18] = 'argon';
+```
+(참고: C# 또는 Java와 같은 언어를 사용하는 경우 Map() 대신 new Map()이 나타날 것으로 예상할 수 있다. Dart에서 new 키워드는 선택 사항이다. 자세한 내용은 생성자 사용을 참조하자.)
+
+아래 첨자 할당 연산자(`[]=`)를 사용하여 기존 맵에 새 key-value 쌍을 추가한다.
+
+``` dart
+var gifts = {'first': 'partridge'};
+gifts['fourth'] = 'calling birds'; // Add a key-value pair
+```
+
