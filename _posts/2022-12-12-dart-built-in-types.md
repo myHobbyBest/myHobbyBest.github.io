@@ -387,4 +387,80 @@ nobleGases[18] = 'argon';
 var gifts = {'first': 'partridge'};
 gifts['fourth'] = 'calling birds'; // Add a key-value pair
 ```
+아래 첨자 연산자([])를 사용하여 맵에서 값을 검색한다.
+
+```dart
+var gifts = {'first': 'partridge'};
+assert(gifts['first'] == 'partridge');
+```
+
+맵에 없는 키를 찾으면 null이 반환된다.
+
+```dart
+var gifts = {'first': 'partridge'};
+assert(gifts['fifth'] == null);
+```
+`.length`를 사용하여 맵에서 key-value 쌍의 갯수를 가져온다.
+
+```dart
+var gifts = {'first': 'partridge'};
+gifts['fourth'] = 'calling birds';
+assert(gifts.length == 2);
+```
+
+컴파일 시간 상수인 map을 만들려면 map 리터럴 앞에 `const`를 추가한다.
+
+``` dart
+final constantMap = const {
+  2: 'helium',
+  10: 'neon',
+  18: 'argon',
+};
+
+// constantMap[2] = 'Helium'; // This line will cause an error.
+```
+
+map는 list처럼 스프레드 연산자(... 및 ...?)와 콜렉션 if 및 for를 지원한다. 자세한 내용과 예제는 spread operator proposal 및  control flow collections proposal을 참조한다.
+
+지도에 대한 자세한 내용은  generics 섹션과 Maps API에 대한 라이브러리 둘러보기를 참조한다.
+
+- #### Runes and grapheme clusters
+Dart에서 룬(Runes)은 문자열의 Unicode 코드 포인트를 노출한다. 문자 패키지를 사용하여 유니코드(확장된) 문자소 클러스터라고도 알려진 사용자 인식 문자를 보거나 조작할 수 있다.
+
+유니코드는 전 세계의 모든 쓰기 시스템에서 사용되는 각 문자, 숫자 및 기호에 대해 고유한 숫자 값을 정의한다. Dart 문자열은 UTF-16 코드유닛의 시퀀스이기 때문에 문자열 내에서 유니코드 코드 포인트를 표현하려면 특별한 구문이 필요하다. 유니코드 코드 포인트를 표현하는 일반적인 방법은 \uXXXX이다. 여기서 XXXX는 4자리 16진수 값이다. 예를 들어 하트 문자(♥)는 \u2665이다. 4자리 이하 또는 이상인 16진수를 지정하려면 값을 중괄호 안에 넣는다. 예를 들어 웃는 이모티콘(😆)은 \u{1f606}입니다.
+
+개별 유니코드 문자를 읽거나 써야 하는 경우 문자 패키지에서 String에 정의한 문자 getter를 사용한다. 반환된 ``Characters`` 객체는 일련의 문자소 클러스터로서의 문자열이다. 다음은 문자 API를 사용하는 예이다.
+
+```dart
+import 'package:characters/characters.dart';
+
+void main() {
+  var hi = 'Hi 🇩🇰';
+  print(hi);
+  print('The end of the string: ${hi.substring(hi.length - 1)}');
+  print('The last character: ${hi.characters.last}');
+}
+```
+출력은 ,사용된 시스템환경에 따라 다르지만, 다음과 같이 표시된다.
+
+``` console
+$ dart run bin/main.dart
+Hi 🇩🇰
+The end of the string: ???
+The last character: 🇩🇰
+```
+
+문자 패키지를 사용하여 문자열을 조작하는 방법에 대한 자세한 내용은 문자 패키지에 대한 예제 및  API reference 를 참고한다.
+
+- #### Symbols
+
+`Symbol` 객체는 Dart 프로그램에서 선언된 연산자 또는 식별자를 나타냅니다. 심볼기호를 사용할 필요가 없을 수도 있지만  `minification`는 식별자 이름을  변경하지만 식별자 기호는 변경하지 않기 때문에 이름으로 식별자를 참조하는 API에 매우 중요하다.
+
+식별자에 대한 심볼기호를 얻으려면 `Symbol` 리터럴을 사용한다. `Symbol`리터럴은 # 다음에 식별자가 오는 것이다.
+
+``` ㅇㅁㄳ
+#radix
+#bar
+```
+`Symbol`  리터럴은 컴파일 타임 상수이다.
 
