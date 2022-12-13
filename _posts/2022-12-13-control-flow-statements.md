@@ -5,7 +5,7 @@ categories: [Flutter, Dart]
 tag: [Control flow statements]
 toc: true
 ---
-### 제어 흐름 명령문(Control flow statements)
+### 흐름 제어 명령문(Control flow statements)
 
 다음 중 하나를 사용하여 Dart 코드의 흐름을 제어할 수 있다.
 
@@ -221,3 +221,12 @@ assert(urlString.startsWith('https'),
     'URL ($urlString) should start with "https".');
 ```
 
+`assert`에 대한 첫 번째 인수는 부울 값으로 확인되는 모든 식일 수 있다. 식의 값이 true이면 어설션이 성공하고 실행이 계속된다. false이면 어설션이 실패하고 예외(Assertion-Error)가 발생한다.
+
+`assert`은 정확히 언제 작동하나? 사용 중인 도구와 프레임워크에 따라 다르다.
+
+- Flutter는 디버그 모드에서 `assert`을 활성화한다.
+- [webdev serve][]와 같은 개발 전용 도구는 전형적으로 `assert`을 기본 활성화한다.
+- `dart run` 및 [dart compile js][]와 같은 일부 도구는 `--enable-asserts` 명령줄 플래그를 통해 `assert`을 지원한다.
+
+프로덕션 코드에서는 `assert`이 무시되고 `assert`에 대한 인수가 평가되지 않는다.
