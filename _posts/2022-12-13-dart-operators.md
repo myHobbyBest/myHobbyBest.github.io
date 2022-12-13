@@ -257,3 +257,45 @@ querySelector('#confirm') // Get an object.
 (버전 참고: `?..` 구문에는 2.12 이상의 언어 버전이 필요하다.)
 앞의 코드는 다음과 동일하다.
 
+``` dart
+var button = querySelector('#confirm');
+button?.text = 'Confirm';
+button?.classes.add('important');
+button?.onClick.listen((e) => window.alert('Confirmed!'));
+button?.scrollIntoView();
+```
+
+캐스케이드를 중첩할 수도 있다. 예를 들어:
+
+``` dart
+final addressBook = (AddressBookBuilder()
+      ..name = 'jenny'
+      ..email = 'jenny@example.com'
+      ..phone = (PhoneNumberBuilder()
+            ..number = '415-555-0100'
+            ..label = 'home')
+          .build())
+    .build();
+```
+
+실제 개체를 반환하는 함수에서 캐스케이드를 구성하도록 주의하자. 예를 들어 다음 코드는 실패한다.
+
+``` dart
+var sb = StringBuffer();
+sb.write('foo')
+  ..write('bar'); // Error: method 'write' isn't defined for 'void'.
+```
+
+sb.write() 호출은 void를 반환하며 void에서 캐스케이드를 구성할 수 없다.
+
+(참고: 엄밀히 말하면 캐스케이드 "double dot" 표기법은 연산자가 아니다. Dart 구문의 일부일 뿐이다.)
+
+- #### 기타 연산자 (Other operators)
+
+그 동안 다른 예제에서 나머지 연산자 대부분을 보아왔다.
+
+
+![other-operators](/images/2022-12-13/2022-12-13-other-operators.png)
+
+`.`, `?.` 및 `..` 연산자에 대한 자세한 내용은 Classes를 참조하라.
+
