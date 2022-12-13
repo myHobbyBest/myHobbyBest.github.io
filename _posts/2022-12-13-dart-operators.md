@@ -217,5 +217,43 @@ var visibility = isPublic ? 'public' : 'private';
 String playerName(String? name) => name ?? 'Guest';
 ```
 
+앞의 예제는 아래 같이 적어도 두 가지 다른 방법으로 작성될 수 있지만 간결하지는 않다.
 
+``` dart
+// Slightly longer version uses ?: operator.
+String playerName(String? name) => name != null ? name : 'Guest';
+
+// Very long version uses if-else statement.
+String playerName(String? name) {
+  if (name != null) {
+    return name;
+  } else {
+    return 'Guest';
+  }
+}
+```
+
+- #### 캐스케이드 표기법 (Cascade notation)
+
+캐스케이드(`..`, `?..`)를 사용하면 동일한 개체에 대해 연속적으로 작업을 수행할 수 있다. 인스턴스 멤버에 액세스하는 것 외에도 동일한 개체에서 인스턴스 메서드를 호출할 수도 있다. 이렇게 하면 종종 임시 변수를 만드는 단계가 줄어들고 더 유동적인 코드를 작성할 수 있다.
+
+다음 코드를 생각해 보자.
+
+``` dart
+var paint = Paint();
+paint.color = Colors.black;
+paint.strokeCap = StrokeCap.round;
+paint.strokeWidth = 5.0;
+```
+캐스케이드가 작동하는 개체가 null일 수 있는 경우 첫 번째 작업에 `null-shorting` 캐스케이드(`?..`)를 사용한다. `?..`로 시작하면 해당 null 개체에서 연속 작업이 시도되지 않는다.
+
+``` dart
+querySelector('#confirm') // Get an object.
+  ?..text = 'Confirm' // Use its members.
+  ..classes.add('important')
+  ..onClick.listen((e) => window.alert('Confirmed!'))
+  ..scrollIntoView();
+```
+(버전 참고: `?..` 구문에는 2.12 이상의 언어 버전이 필요하다.)
+앞의 코드는 다음과 동일하다.
 
