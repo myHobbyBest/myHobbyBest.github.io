@@ -104,11 +104,10 @@ assert(2 < 3);
 assert(3 >= 3);
 assert(2 <= 3);
 ```
+
 - #### 유형 테스트 연산자 (Type test operators)
 
-
 `as`, `is` 와 `is!` 연산자는 런타임에서 유형을 확인하는 데 편리하다.
-
 
 ![type test operators](/images/2022-12-13/2022-12-13-type-test-operator.png)
 
@@ -128,6 +127,7 @@ if (employee is Person) {
   employee.firstName = 'Bob';
 }
 ```
+
 (참고: 두 코드는 동일하지 않다. `employee`이 `null`이거나 `Person`이 아닌 경우 첫 번째 예에서 예외가 발생한니다. 두 번째 예에서는 아무것도 하지 않는다.)
 
 - #### 할당 연산자 (Assignment operators)
@@ -140,6 +140,7 @@ a = value;
 // Assign value to b if b is null; otherwise, b stays the same
 b ??= value;
 ```
+
 `+=`와 같은 복합 대입 연산자는 연산과 대입을 결합한다.
 
 ![assignment operators](/images/2022-12-13/2022-12-13-assignment-operators.png)
@@ -147,7 +148,6 @@ b ??= value;
 복합 대입 연산자의 작동 방식은 다음과 같다.
 
 ![assignment operators work](/images/2022-12-13/2022-12-13-assignment-operators-work.png)
-
 
 ``` dart
 var a = 2; // Assign using =
@@ -168,13 +168,12 @@ if (!done && (col == 0 || col == 3)) {
   // ...Do something...
 }
 ```
+
 - #### 비트 및 시프트 연산자 (Bitwise and shift operators)
 
 Dart에서 숫자의 개별 비트를 조작할 수 있다. 일반적으로 이러한 비트 및 시프트 연산자를 정수와 함께 사용한다.
 
-
 ![bitwise and shift operators](/images/2022-12-13/2022-12-13-bitwise-shift-operators.png)
-
 
 다음은 비트 및 시프트 연산자를 사용하는 예이다.
 
@@ -195,7 +194,6 @@ assert((-value >>> 4) > 0); // Unsigned shift right
 
 (버전 참고: `>>>` 연산자(트리플 시프트 또는 무부호 시프트로 알려짐)에는 2.14 이상의 언어 버전이 필요하다.)
 
-
 - #### 조건식 ( Conditional expressions )
 
 Dart에는 if-else 문이 필요할 수 있는 표현식을 간결하게 평가할 수 있는 두 개의 연산자가 있다.
@@ -204,8 +202,7 @@ Dart에는 if-else 문이 필요할 수 있는 표현식을 간결하게 평가�
 `condition`이 참이면 `expr1`을 계산하고 해당 값을 반환한다. 그렇지 않으면 `expr2`의 값을 계산하고 반환한다.
 `expr1 ?? expr2`
 `expr1`이 null이 아닌 경우 해당 값을 반환한다. 그렇지 않으면 `expr2`의 값을 계산하고 반환한다.
-부울 식을 기반으로 값을 할당해야 하는 경우 `? `와 `:`를 고려한다.
-
+부울 식을 기반으로 값을 할당해야 하는 경우 `?`와 `:`를 고려한다.
 
 ``` dart
 var visibility = isPublic ? 'public' : 'private';
@@ -245,6 +242,7 @@ paint.color = Colors.black;
 paint.strokeCap = StrokeCap.round;
 paint.strokeWidth = 5.0;
 ```
+
 캐스케이드가 작동하는 개체가 null일 수 있는 경우 첫 번째 작업에 `null-shorting` 캐스케이드(`?..`)를 사용한다. `?..`로 시작하면 해당 null 개체에서 연속 작업이 시도되지 않는다.
 
 ``` dart
@@ -254,6 +252,7 @@ querySelector('#confirm') // Get an object.
   ..onClick.listen((e) => window.alert('Confirmed!'))
   ..scrollIntoView();
 ```
+
 (버전 참고: `?..` 구문에는 2.12 이상의 언어 버전이 필요하다.)
 앞의 코드는 다음과 동일하다.
 
@@ -294,8 +293,6 @@ sb.write() 호출은 void를 반환하며 void에서 캐스케이드를 구성�
 
 그 동안 다른 예제에서 나머지 연산자 대부분을 보아왔다.
 
-
 ![other-operators](/images/2022-12-13/2022-12-13-other-operators.png)
 
 `.`, `?.` 및 `..` 연산자에 대한 자세한 내용은 Classes를 참조하라.
-
