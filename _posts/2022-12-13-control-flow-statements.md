@@ -31,6 +31,7 @@ if (isRaining()) {
   car.putTopDown();
 }
 ```
+
 명령문 조건은 부울 값으로 평가되는 표현식이어야 한다. 자세한 내용은 Booleans을 참조하라.
 
 - #### for 루프
@@ -43,6 +44,7 @@ for (var i = 0; i < 5; i++) {
   message.write('!');
 }
 ```
+
 Dart의 `for` 루프 내부의 클로저는 인덱스 값을 캡처하여 JavaScript에서 발견되는 일반적인 함정을 피한다. 다음 예를 고려해보자.
 
 ``` dart
@@ -55,6 +57,7 @@ for (final c in callbacks) {
   c();
 }
 ```
+
 출력은 예상대로 0과 1이다. 대조적으로, 예제는 JavaScript에서 2를 인쇄한 다음 2를 인쇄합니다.
 
 반복하려는 객체가 Iterable(예: List 또는 Set)이고 현재 반복 카운터를 알 필요가 없는 경우 for-in 형식의 반복(iteration)을 사용할 수 있다.
@@ -64,6 +67,7 @@ for (final candidate in candidates) {
   candidate.interview();
 }
 ```
+
 (팁: for-in 사용을 연습하려면  Iterable collections codelab을 참고하자.)
 
 Iterable 클래스에는 또 다른 방법으로 forEach() 메서드가 있다.
@@ -124,7 +128,6 @@ candidates
 
 - #### switch 와 case
 
-
 Dart의 Switch 문은 `==`를 사용하여 정수, 문자열 또는 컴파일 타임 상수를 비교한다. 비교 대상은 모두 같은 클래스의 인스턴스여야 하며(하위 유형이 아님) 클래스는 `==` 를 재정의하면 안 된다. 열거형 유형(enum type)은 switch 문에서 잘 작동한다.
 
 비어 있지 않은 각 `case` 절은 일반적으로 `break` 문으로 끝난다. 비어 있지 않은 `case` 절을 종료하는 다른 유효한 방법은 `continue`, `throw` 또는 `return` 문이다.
@@ -168,6 +171,7 @@ switch (command) {
     break;
 }
 ```
+
 그러나 Dart는 비어 있는 `case` 절을 지원하므로 다음과 같은 형태의 fall-through를 허용합니다.
 
 ``` dart
@@ -180,6 +184,7 @@ switch (command) {
     break;
 }
 ```
+
 폴스루(fall-through)를 원하는 경우 `continue` 문과 레이블을 사용할 수 있다.
 
 ``` dart
@@ -214,6 +219,7 @@ assert(number < 100);
 // Make sure this is an https URL.
 assert(urlString.startsWith('https'));
 ```
+
 `assert`에 메시지를 첨부하려면 `assert`의 두 번째 인수로 문자열을 추가한다-선택적으로 뒤에 쉼표(trailing comma) 를 사용한다.
 
 ``` dart
@@ -226,7 +232,8 @@ assert(urlString.startsWith('https'),
 `assert`은 정확히 언제 작동하나? 사용 중인 도구와 프레임워크에 따라 다르다.
 
 - Flutter는 디버그 모드에서 `assert`을 활성화한다.
-- [webdev serve][]와 같은 개발 전용 도구는 전형적으로 `assert`을 기본 활성화한다.
-- `dart run` 및 [dart compile js][]와 같은 일부 도구는 `--enable-asserts` 명령줄 플래그를 통해 `assert`을 지원한다.
+
+- `[webdev serve][]`와 같은 개발 전용 도구는 전형적으로 `assert`을 기본 활성화한다.
+- `dart run` 및 `[dart compile js][]`와 같은 일부 도구는 `--enable-asserts` 명령줄 플래그를 통해 `assert`을 지원한다.
 
 프로덕션 코드에서는 `assert`이 무시되고 `assert`에 대한 인수가 평가되지 않는다.
