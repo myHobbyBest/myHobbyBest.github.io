@@ -1,6 +1,6 @@
 ---
 title:  "Operators"  
-date:   2022-12-12 18:40:22 +0900
+date:   2022-12-13 10:05:45 +0900
 categories: [Flutter, Dart]
 tag: [Operators]
 toc: true
@@ -42,6 +42,8 @@ if (n * i == 0 && d * i == 0) ...
 
     ![Arithmetic operators](/images/2022-12-13/2022-12-13-2-arithmatic-operators.png)
 
+예제
+
 ``` dart
 assert(2 + 3 == 5);
 assert(2 - 3 == -1);
@@ -79,4 +81,31 @@ a = 0;
 b = a--; // Decrement a AFTER b gets its value.
 assert(a != b); // -1 != 0
 ```
+
+- #### 같음 및 관계 연산자 (Equality and relational operators)
+
+다음 표에는 같음 및 관계 연산자의 의미가 나열되어 있다.
+
+![Equality and relational operators](/images/2022-12-13/2022-12-13-equality-operators.png)
+
+두 객체 x와 y가 같은 것을 나타내는지 테스트하려면 `==` 연산자를 사용한다. (두 개체가 정확히 같은 개체인지 알아야 하는 드문 경우에는 대신 same() 함수를 사용한다.) `==` 연산자의 작동 방식은 다음과 같다.
+
+x 또는 y가  null인 경우에 있어서 x 와 y가 둘 다 null이면  true를 반환하고  하나만 null이면 false를 반환한다.
+
+인수 y를 사용하여 x에 대해 `==` 메서드를 호출한 결과를 반환한다. ( 즉 `==`와 같은 연산자는 첫 번째 피연산자에서 호출되는 메서드이다. 자세한 내용은 연산자를 참조한다.)
+
+다음은 같음 및 관계 연산자를 각각 사용하는 예이다.
+
+``` dart
+assert(2 == 2);
+assert(2 != 3);
+assert(3 > 2);
+assert(2 < 3);
+assert(3 >= 3);
+assert(2 <= 3);
+```
+- #### 유형 테스트 연산자 (Type test operators)
+
+
+
 
