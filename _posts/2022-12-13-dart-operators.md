@@ -107,5 +107,115 @@ assert(2 <= 3);
 - #### 유형 테스트 연산자 (Type test operators)
 
 
+`as`, `is` 와 `is!` 연산자는 런타임에서 유형을 확인하는 데 편리하다.
+
+
+![type test operators](/images/2022-12-13/2022-12-13-type-test-operator.png)
+
+`obj`가 T로 지정된 인터페이스를 구현하는 경우 `obj is T`는 참이다. 예를 들어, `obj is Object?`는 항상 참이다.
+
+객체가 특정 유형인지 확신하는 경우에만 `as` 연산자를 사용하여 객체를 특정 유형으로 `cast'한다. 예시:
+
+``` dart
+(employee as Person).firstName = 'Bob';
+```
+
+객체가 T 유형인지 확실하지 않은 경우 `is T`를 사용하여 객체를 사용하기 전에 유형을 확인한다.
+
+``` dart
+if (employee is Person) {
+  // Type check
+  employee.firstName = 'Bob';
+}
+```
+(참고: 두 코드는 동일하지 않다. `employee`이 `null`이거나 `Person`이 아닌 경우 첫 번째 예에서 예외가 발생한니다. 두 번째 예에서는 아무것도 하지 않는다.)
+
+- #### 할당 연산자 (Assignment operators)
+
+이미 본 것처럼 `=` 연산자를 사용하여 값을 할당할 수 있다. 할당 대상 변수가 null인 경우에 만 할당하려면 ??= 연산자를 사용한다.
+
+``` dart
+// Assign value to a
+a = value;
+// Assign value to b if b is null; otherwise, b stays the same
+b ??= value;
+```
+`+=`와 같은 복합 대입 연산자는 연산과 대입을 결합한다.
+
+![assignment operators](/images/2022-12-13/2022-12-13-assignment-operators.png)
+
+복합 대입 연산자의 작동 방식은 다음과 같다.
+
+![assignment operators work](/images/2022-12-13/2022-12-13-assignment-operators-work.png)
+
+
+``` dart
+var a = 2; // Assign using =
+a *= 3; // Assign and multiply: a = a * 3
+assert(a == 6);
+```
+
+- #### 논리 연산자 (Logical operators)
+
+논리 연산자를 사용하여 부울 식을 반전하거나 결합할 수 있다.
+
+![logical operators](/images/2022-12-13/2022-12-13-logical-operators.png)
+
+다음은 논리 연산자를 사용하는 예이다.
+
+``` dart
+if (!done && (col == 0 || col == 3)) {
+  // ...Do something...
+}
+```
+- #### 비트 및 시프트 연산자 (Bitwise and shift operators)
+
+Dart에서 숫자의 개별 비트를 조작할 수 있다. 일반적으로 이러한 비트 및 시프트 연산자를 정수와 함께 사용한다.
+
+
+![bitwise and shift operators](/images/2022-12-13/2022-12-13-bitwise-shift-operators.png)
+
+
+다음은 비트 및 시프트 연산자를 사용하는 예이다.
+
+``` dart
+final value = 0x22;
+final bitmask = 0x0f;
+
+assert((value & bitmask) == 0x02); // AND
+assert((value & ~bitmask) == 0x20); // AND NOT
+assert((value | bitmask) == 0x2f); // OR
+assert((value ^ bitmask) == 0x2d); // XOR
+assert((value << 4) == 0x220); // Shift left
+assert((value >> 4) == 0x02); // Shift right
+assert((value >>> 4) == 0x02); // Unsigned shift right
+assert((-value >> 4) == -0x03); // Shift right
+assert((-value >>> 4) > 0); // Unsigned shift right
+```
+
+(버전 참고: `>>>` 연산자(트리플 시프트 또는 무부호 시프트로 알려짐)에는 2.14 이상의 언어 버전이 필요하다.)
+
+
+- #### 조건식 ( Conditional expressions )
+
+Dart에는 if-else 문이 필요할 수 있는 표현식을 간결하게 평가할 수 있는 두 개의 연산자가 있다.
+
+`condition ? expr1 : expr2`
+`condition`이 참이면 `expr1`을 계산하고 해당 값을 반환한다. 그렇지 않으면 `expr2`의 값을 계산하고 반환한다.
+`expr1 ?? expr2`
+`expr1`이 null이 아닌 경우 해당 값을 반환한다. 그렇지 않으면 `expr2`의 값을 계산하고 반환한다.
+부울 식을 기반으로 값을 할당해야 하는 경우 `? `와 `:`를 고려한다.
+
+
+``` dart
+var visibility = isPublic ? 'public' : 'private';
+```
+
+부울 표현식이 null을 테스트하는 경우 ??를 사용하는 것이 좋다.
+
+``` dart
+String playerName(String? name) => name ?? 'Guest';
+```
+
 
 
