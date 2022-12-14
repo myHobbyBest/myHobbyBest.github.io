@@ -405,5 +405,107 @@ class ShoppingListItem extends StatelessWidget {
 
 사용자가 list 항목을 탭하면 위젯이 inCart 값을 직접 수정하지 않는다. 대신 위젯은 상위 위젯에서 받은 `onCartChanged` 함수를 호출한다. 이 패턴을 사용하면 위젯 계층 구조에서 더 높은 상태를 저장할 수 있으므로 상태가 더 오랜 시간 동안 지속된다. 극단적으로 `runApp()`에 전달된 위젯에 저장된 상태는 애플리케이션의 수명 동안 지속된다.
 
-부모가 `onCartChanged` 콜백을 수신하면 부모는 내부 상태를 업데이트하여 부모가 새 `inCart` 값으로 `ShoppingListItem`의 새 인스턴스를 다시 작성하고 생성하도록 트리거한다. 부모가 다시 빌드할 때 `ShoppingListItem`의 새 인스턴스를 생성하지만 프레임워크가 새로 빌드된 위젯을 이전에 빌드된 위젯과 비교하고 차이점만 기본 RenderObject에 적용하기 때문에 해당 작업이 저렴합니다.
+부모가 `onCartChanged` 콜백을 수신하면 부모는 내부 상태를 업데이트하여 부모가 새 `inCart` 값으로 `ShoppingListItem`의 새 인스턴스를 다시 작성하고 생성하도록 트리거한다. 부모가 다시 빌드할 때 `ShoppingListItem`의 새 인스턴스를 생성하지만 프레임워크가 새로 빌드된 위젯을 이전에 빌드된 위젯과 비교하고 차이점만 기본 `RenderObject`에 적용하기 때문에 해당 작업이 저렴하다.
+
+다음은 변경 가능한 상태를 저장하는 부모 위젯의 예이다.
+``` dart
+  class ShoppingList extends StatefulWidget {
+  ShoppingList({Key key, this.products}) : super(key: key);
+
+  final List<Product> products;
+
+  // The framework calls createState the first time a widget appears at a given
+  // location in the tree. If the parent rebuilds and uses the same type of
+  // widget (with the same key), the framework re-uses the State object
+  // instead of creating a new State object.
+
+  @override
+  _ShoppingListState createState() => _ShoppingListState();
+}
+
+class _ShoppingListState extends State<ShoppingList> {
+  Set<Product> _shoppingCart = Set<Product>();
+
+  void _handleCartChanged(Product product, bool inCart) {
+    setState(() {
+      // When a user changes what's in the cart, you need to change
+      // _shoppingCart inside a setState call to trigger a rebuild.
+      // The framework then calls build, below,
+      // which updates the visual appearance of the app.
+
+      if (!inCart)
+        _shoppingCart.add(product);
+      else
+        _shoppingCart.remove(product);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Shopping List'),
+      ),
+      body: ListView(
+        padding: EdgeInsets.symmetric(vertical: 8.0),
+        children: widget.products.map((Product product) {
+          return ShoppingListItem(
+            product: product,
+            inCart: _shoppingCart.contains(product),
+            onCartChanged: _handleCartChanged,
+          );
+        }).toList(),
+      ),
+    );
+  }
+}
+
+void main() {
+  runApp(MaterialApp(
+    title: 'Shopping App',
+    home: ShoppingList(
+      products: <Product>[
+        Product(name: 'Eggs'),
+        Product(name: 'Flour'),
+        Product(name: 'Chocolate chips'),
+      ],
+    ),
+  ));
+}
+```
+`ShoppingList` 클래스는 `StatefulWidget`을 확장한다. 즉, 이 위젯은 변경 가능한 상태를 저장한다. `ShoppingList` 위젯이 트리에 처음 삽입되면 프레임워크는 `createState()` 함수를 호출하여 트리의 해당 위치와 연결할 _`ShoppingListState`의 새 인스턴스를 만든다.
+
+(`State`의 하위 클래스는 일반적으로 private 구현 세부 정보임을 나타내기 위해 이름앞에 underscores가 사용된다.) 이 위젯의 부모가 다시 빌드되면 부모는 `ShoppingList`의 새 인스턴스를 생성하지만 프레임워크는 `createState`를 다시 호출하는 기 보다는 이미 트리에 있는 `_ShoppingListState` 인스턴스를 재사용한다.
+
+현재 `ShoppingList`의 속성에 액세스하기 위해 _`ShoppingListState`는 위젯 속성을 사용할 수 있다. 부모가 새 `ShoppingList`를 다시 작성하고 만들면 `_ShoppingListState`가 새 위젯 값으로 다시 작성된다. 위젯 속성이 변경될 때 알림을 받으려면 이전 위젯을 현재 위젯과 비교할 수 있도록 `oldWidget`으로 전달되는 `didUpdateWidget()` 함수를 재정의하라.
+
+`onCartChanged` 콜백을 처리할 때 `_ShoppingListState`는 `_shoppingCart`에서 제품을 추가하거나 제거하여 내부 상태를 변경한다. 내부 상태가 변경되었음을 프레임워크에 알리기 위해 해당 호출을 `setState()` 호출로 래핑한다. `setState`를 호출하면 이 위젯이 더티( dirty)로 표시되고 다음에 앱에서 화면을 업데이트해야 할 때 다시 빌드되도록 예된다. 위젯의 내부 상태를 수정할 때 `setState`를 호출하는 것을 잊은 경우 프레임워크는 위젯이 더티( dirty)라는 것을 알지 못하고 위젯의 `build()` 함수를 호출하지 않을 수 있다. 즉, 사용자 인터페이스가 변경된 상태를 반영하도록 업데이트되지 않을 수 있다.
+이러한 방식으로 상태를 관리하면 자식 위젯을 만들고 업데이트하기 위한 별도의 코드를 작성할 필요가 없다. 대신 두 상황을 모두 처리하는 빌드 기능을 구현하기만 하면 된다.
+
+
+### 위젯 수명 주기 이벤트에 반응하기 (Responding to widget lifecycle events)
+
+`StatefulWidget`에서 `createState()`를 호출한 후 프레임워크는 새 상태 개체를 트리에 삽입한 다음 상태 개체에서 `initState()`를 호출한다. `State`의 하위 클래스는 한 번만 발생해야 하는 작업을 수행하도록 `initState`를 재정의할 수 있다. 예를 들어 애니메이션을 구성하거나 플랫폼 서비스를 구독하려면 `initState`를 재정의한다. `initState`의 구현은 `super.initState`를 호출하여 시작해야 한다.
+
+상태 개체가 더 이상 필요하지 않으면 프레임워크는 상태 개체에서 `dispose(`)를 호출한다. 정리 작업을 수행하려면 `dispose` 함수를 재정의한다. 예를 들어 타이머를 취소하거나 플랫폼 서비스에서 구독을 취소하려면 `dispose`를 재정의한다. `dispose` 구현은 일반적으로 `super.dispose`를 호출하여 끝낸다.
+
+자세한 내용은 State를 참조하자.
+
+### Keys
+
+키를 사용하여 위젯이 다시 빌드될 때 프레임워크가 다른 위젯과 일치하는 위젯을 제어한다. 기본적으로 프레임워크는 `runtimeType` 과 그 나타나는 순서에 따라 현재 및 이전 빌드의 위젯을 일치시킨다. 키를 사용하면 프레임워크는 두 위젯이 동일한 `runtimeType`일뿐 만 아니라 동일한 키를 가질 것을 요구한다.
+
+키는 동일한 유형의 위젯의 많은 인스턴스를 빌드하는 위젯에서 가장 유용하다. 예를 들어, 표시 영역을 채우기에 충분한 `ShoppingListItem` 인스턴스를 빌드하는 `ShoppingList` 위젯은 다음과 같다.
+
+  - 키가 없으면 현재 빌드의 첫 번째 항목은 항상 이전 빌드의 첫 번째 항목과 동기화된다. 의미론적으로 목록의 첫 번째 항목이 화면 밖으로 스크롤되어 더 이상 뷰포트에 표시되지 않는 경우에도 마찬가지이다.
+
+  - 목록의 각 항목에 "의미론적(semantic)" 키를 할당하면 프레임워크가 항목을 일치하는 의미론적 키와 동기화되고 이에 따라 유사한(또는 동일한) 시각적 모양이 동기화하므로 무한 목록이 더 효율적일 수 있다. 또한 항목을 의미론적으로 동기화한다는 것은 상태 저장 하위 위젯에 유지된 상태가 뷰포트에서 동일한 숫자 위치에 있는 항목이 아니라 동일한 의미론 항목에 연결된 상태로 남아 있음을 의미한다.
+
+자세한 내용은 Key API를 참조하라.
+
+### 전역 키 (Global Keys)
+
+전역 키를 사용하여 자식 위젯을 고유하게 식별한다. 전역 키는 형제 간에 고유해야 하는 로컬 키와 달리 전체 위젯 계층에서 전역적으로 고유해야 한다. 전역적으로 고유하기 때문에 전역 키를 사용하여 위젯과 연결된 상태를 검색할 수 있다.
+
+자세한 내용은 GlobalKey API를 참조하라.
 
