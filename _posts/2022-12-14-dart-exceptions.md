@@ -64,6 +64,66 @@ try {
 }
 ```
 
-앞의 코드에서 볼 수 있듯이 on 또는 catch를 사용하거나 둘 다를 사용할 수 있다. 예외 유형을 지정해야 하는 경우 on을 사용한다. 예외 처리기에 예외 개체가 필요한 경우 catch를 사용합니다.
+앞의 코드에서 볼 수 있듯이 `on` 또는 `catch`를 사용하거나 둘 다를 사용할 수 있다. 예외 유형을 지정해야 하는 경우 `on`을 사용한다. 예외 처리기에 예외 개체가 필요한 경우 `catch`를 사용한다.
 
-catch()에 하나 또는 두 개의 매개변수를 지정할 수 있습니다. 첫 번째는 throw된 예외이고 두 번째는 스택 추적(StackTrace 개체)입니다.
+`catch()`에 하나 또는 두 개의 매개변수를 지정할 수 있다. 첫 번째는 `throw`된 예외이고 두 번째는 스택 추적(`StackTrace` 개체)이다.
+
+``` dart
+try {
+  // ···
+} on Exception catch (e) {
+  print('Exception details:\n $e');
+} catch (e, s) {
+  print('Exception details:\n $e');
+  print('Stack trace:\n $s');
+}
+```
+
+예외의 전파를 허용하면서 예외를 부분적으로 처리하려면 rethrow 키워드를 사용한다.
+
+``` dart
+void misbehave() {
+  try {
+    dynamic foo = true;
+    print(foo++); // Runtime error
+  } catch (e) {
+    print('misbehave() partially handled ${e.runtimeType}.');
+    rethrow; // Allow callers to see the exception.
+  }
+}
+
+void main() {
+  try {
+    misbehave();
+  } catch (e) {
+    print('main() finished handling ${e.runtimeType}.');
+  }
+}
+```
+
+- #### `finally`
+
+예외 발생 여부에 관계없이 일부 코드가 실행되도록 하려면 `finally` 절을 사용한다. 예외와 일치하는 `catch` 절이 없으면 `finally` 절이 실행된 후 예외가 전파된다.
+
+``` dart
+try {
+  breedMoreLlamas();
+} finally {
+  // Always clean up, even if an exception is thrown.
+  cleanLlamaStalls();
+}
+```
+
+`finally` 절은 일치하는 `catch` 절 다음에 실행된다.
+
+``` dart
+try {
+  breedMoreLlamas();
+} catch (e) {
+  print('Error: $e'); // Handle the exception first.
+} finally {
+  cleanLlamaStalls(); // Then clean up.
+}
+```
+
+예외의 처리에 관해서는 liblary 둘러보기의 Exceptions 섹션을 자세히 읽어보기 바란다.
