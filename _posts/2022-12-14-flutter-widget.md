@@ -1,12 +1,18 @@
 ---
-title:  "Widgets"  
+title:  "Introduction to widgets"  
 date:   2022-12-14 13:05:12 +0900
 categories: [Flutter, Widget]
 tag: [Widget]
 toc: true
 ---
-## 위젯 (Widgets)
+## 위젯 소개 (Introduction to widgets)
 
+---
+
+위젯은 UI의  구성부분 중 형식화 하거나 정형화 할 수 있는 부분들을  class로 정의하여 필요한 곳에 필요할 때 언제든지 객체로 불러내서 사용하고자 하는 플러터의 가장 중요한 프레임워크 기능 중 하나이다.
+아래 내용은 flutter.dev 에 기재된 __Introduction to widgets__ 내용을 번역한 것이다.
+
+---
 Flutter의 위젯은 React에서 영감을 얻은 최신 프레임워크를 사용하여 구축되었다. 핵심 아이디어는 위젯에서 UI를 구축한다는 것이다. 위젯은 현재 구성 및 상태에 따라 외모가 어떻게 보여야 하는지 설명한다. 위젯의 상태가 변경되면 위젯은 한 상태에서 다음 상태로 전환하기위한 기본 렌더링 트리에서 필요한 최소한의 변경 사항을 결정하기 위해 프레임워크가 이전의 묘사와 비교하는 묘사를 다시 빌드한다.
 (참고: 몇 가지 코드를 살펴봄으로써 Flutter에 대해 더 잘 알고 싶다면  basic layout codelab, building layouts, and adding interactivity to your Flutter app를 확인하기바란다.)
 
