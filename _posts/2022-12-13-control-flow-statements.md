@@ -20,7 +20,7 @@ toc: true
 
 - #### `If` and `else`
 
-Dart는 다음 예제와 같이 선택적 `else` 문이 있는 `if` 문을 지원합니다. conditional expressions 도 참조하라.
+Dart는 다음 예제와 같이 선택적 `else` 문이 있는 `if` 문을 지원한다. conditional expressions 도 참조하라.
 
 ``` dart
 if (isRaining()) {
@@ -58,7 +58,7 @@ for (final c in callbacks) {
 }
 ```
 
-출력은 예상대로 0과 1이다. 대조적으로, 예제는 JavaScript에서 2를 인쇄한 다음 2를 인쇄합니다.
+출력은 예상대로 0과 1이다. 대조적으로, 예제는 JavaScript에서 2를 인쇄한 다음 2를 인쇄한다.
 
 반복하려는 객체가 Iterable(예: List 또는 Set)이고 현재 반복 카운터를 알 필요가 없는 경우 for-in 형식의 반복(iteration)을 사용할 수 있다.
 
@@ -106,7 +106,7 @@ while (true) {
 }
 ```
 
-`continue` 는 다음번 루프 반복으로 건너뜁니다.
+`continue` 는 다음번 루프 반복으로 건너뛴다.
 
 ``` dart
 for (int i = 0; i < candidates.length; i++) {
@@ -172,7 +172,7 @@ switch (command) {
 }
 ```
 
-그러나 Dart는 비어 있는 `case` 절을 지원하므로 다음과 같은 형태의 fall-through를 허용합니다.
+그러나 Dart는 비어 있는 `case` 절을 지원하므로 다음과 같은 형태의 fall-through를 허용한다.
 
 ``` dart
 var command = 'CLOSED';
@@ -234,6 +234,6 @@ assert(urlString.startsWith('https'),
 - Flutter는 디버그 모드에서 `assert`을 활성화한다.
 
 - `[webdev serve][]`와 같은 개발 전용 도구는 전형적으로 `assert`을 기본 활성화한다.
-- `dart run` 및 `[dart compile js][]`와 같은 일부 도구는 `--enable-asserts` 명령줄 플래그를 통해 `assert`을 지원한다.
+- `dart run` 및 `[dart compile js][]`와 같은 일부 도구는 명령줄 플래그를 통해 `assert`을 지원한다. :`--enable-asserts`
 
 프로덕션 코드에서는 `assert`이 무시되고 `assert`에 대한 인수가 평가되지 않는다.
