@@ -18,7 +18,6 @@ async 및 await 키워드는 비동기 프로그래밍을 지원하므로 동기
 - 여기에 설명된 대로 async 및 await를 사용한다. 또한  asynchronous programming codelab를 참조한다. 
 - 라이브러리 둘러보기(the library tour.)에 설명된 대로 Future API를 사용한다.
 
-
 async 및 await를 사용하는 코드는 비동기식이지만 동기식 코드와 매우 유사하다. 예를 들어 다음은 await를 사용하여 비동기 함수의 결과를 기다리는 코드의 일부이다.
 
 ``` dart
@@ -33,6 +32,7 @@ Future<void> checkVersion() async {
   // Do something with version
 }
 ```
+
 (주: 비동기 함수는 시간이 많이 걸리는 작업을 수행할 수 있지만 해당 작업을 기다리지 않는다. 대신 async 함수는 첫 await 표현식을 만날 때까지만 실행된다. 그런 다음 Future 객체를 반환하고 await 표현식이 완료된 후에만 실행을 재개한다.)
 
 try, catch 및 finally를 사용하여 await를 사용하는 코드에서 오류를 처리하고 정리한다.
@@ -63,6 +63,7 @@ void main() async {
   print('In main: version is ${await lookUpVersion()}');
 }
 ```
+
 (주:앞의 예제에서는 결과를 기다리지 않고 비동기 함수(checkVersion())를 사용한다. 코드에서 함수 실행이 완료되었다고 가정하면 문제가 발생할 수 있다. 이 문제를 방지하기위해 unawaited_futures linter 규칙을 사용한다.)
 
 futures, async, await 사용에 대한 대화형 소개는 asynchronous programming codelab 을 참조한다.
@@ -78,20 +79,21 @@ String lookUpVersion() => '1.0.0';
 ```
 
 예를 들어 향후 구현에 시간이 많이 걸리기 때문에 비동기 함수로 변경하면 반환되는 값은 Future이다.
+
 ``` dart
 Future<String> lookUpVersion() async => '1.0.0';
 ```
-함수 본문은 Future API를 사용할 필요가 없다. Dart는 필요한 경우 Future 객체를 생성한다. 함수가  값을 반환하지 않는 경우라면 반환 유형을 Future<void>로 만든다.
+
+함수 본문은 Future API를 사용할 필요가 없다. Dart는 필요한 경우 Future 객체를 생성한다. 함수가  값을 반환하지 않는 경우라면 반환 유형을 `Future<void>`로 만든다.
 
 futures, async, await 사용에 대한 대화형 소개는 asynchronous programming codelab을 참조한다.
 
-
-- #### 스트림 다루기 
+- #### 스트림 다루기
 
 스트림에서 값을 가져와야 하는 경우 두 가지 옵션이 있다.
 
 - async 와 비동기 for loop (await for)를 사용한다.
--  library tour에 설명된 대로 Stream API를 사용한다.
+- library tour에 설명된 대로 Stream API를 사용한다.
 
 (주: await for를 사용하기 전에 코드가 더 명확해지는지 스트림의 모든 결과를 정말로 기다리고 싶은지 확인한다. 예를 들어 UI 프레임워크는 끝없는 이벤트 스트림을 보내기 때문에 일반적으로 UI 이벤트 리스너에 대해 await for를 사용하면 안된다.)
 
@@ -102,6 +104,7 @@ await for (varOrType identifier in expression) {
   // Executes each time the stream emits a value.
 }
 ```
+
 expression의 값은 Stream 유형이어야 한다. 실행은 다음과 같이 진행된다.
 
 1. 스트림이 값을 내보낼 때까지 기다린다.
@@ -121,4 +124,5 @@ void main() async {
   // ...
 }
 ```
+
 일반적으로 비동기 프로그래밍에 대한 자세한 내용은 the library tour 의 dart:async 섹션을 참조하자.
