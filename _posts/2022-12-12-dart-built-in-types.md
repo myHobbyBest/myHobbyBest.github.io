@@ -7,7 +7,6 @@ toc: true
 ---
 ### 내장 유형 (Built-in types)
 
-
 Dart 언어는 아래와 같은 것들을 특별히 지원한다.
 
 - Numbers (int, double)
@@ -20,13 +19,13 @@ Dart 언어는 아래와 같은 것들을 특별히 지원한다.
 - Symbols (Symbol)
 - The value null (Null)
 
-이 지원에는 리터럴을 사용하여 개체를 만드는 기능이 포함된다. 예를 들어 'this is a string'은 ``string`` 리터럴이고 true는 ``bool`` 리터럴이다.
+이 지원에는 리터럴을 사용하여 개체를 만드는 기능이 포함된다. 예를 들어 'this is a string'은 `string` 리터럴이고 true는 `bool` 리터럴이다.
 
-Dart의 모든 변수는 객체(클래스의 인스턴스)를 참조하기 때문에 일반적으로 생성자를 사용하여 변수를 초기화할 수 있다. 일부 built-in type 에는 자기자신의 고유한 생성자가 있다. 예를 들어 ``Map()`` 생성자를 사용하여 map을 만들 수 있다.
+Dart의 모든 변수는 객체(클래스의 인스턴스)를 참조하기 때문에 일반적으로 생성자를 사용하여 변수를 초기화할 수 있다. 일부 built-in type 에는 자기자신의 고유한 생성자가 있다. 예를 들어 `Map()` 생성자를 사용하여 map을 만들 수 있다.
 
 일부 다른 유형도 Dart 언어에서 특별한 역할을 한다.
 
-- ``Object`` : Null을 제외한 모든 Dart 클래스의 슈퍼클래스이다.
+- `Object` : Null을 제외한 모든 Dart 클래스의 슈퍼클래스이다.
 - ``Enum`` : 모든  enum들의 슈퍼클래스이다.
 - ``Future`` 와 ``Stream`` : 비동기 지원에 사용된다.
 - ``Iterable`` : for-in loop 및 동기 생성기 함수에 사용된다.
