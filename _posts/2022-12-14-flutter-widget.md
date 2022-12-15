@@ -142,7 +142,7 @@ flutter:
 
 `MyAppBar` 위젯은 좌우 양쪽 모두에 8픽셀의 내부 패딩이 있는 56개의 device-independent(장치독립적) 픽셀 높이를 가진  `Container`를 만든다. `Container` 내에서 `MyAppBar`는 행(Row) 레이아웃을 사용하여 자식(하위 위젯)을 구성한다. middle childe인 `title`위젯은 `Expanded`로 표시된다. 이는 다른 자식이 사용하지 않은 나머지 사용 가능한 공간을 확장(`Expanded`)하여 채운다는 의미이다. 확장된 자식을 여러 개 가질 수 있으며 `Expanded`에 대한 `flex` 인수를 사용하여 사용 가능한 공간을 소비하는 비율을 결정할 수 있다.
 
-`MyScaffold` 위젯은 수직 `column`에 하위 항목을 구성한다. `column`의 맨 위에 `MyAppBar`의 인스턴스를 배치하고 제목으로 사용할 `Text` 위젯을 `MyAppBar`에 전달한다. 위젯을 다른 위젯에 인수로 전달하는 것은 다양한 방법으로 재사용할 수 있는 제네릭 위젯을 만들 수 있는 강력한 기술이다. 마지막으로 `MyScaffold`는 `Expanded`를 사용하여 중앙 메시지로 구성된 본문으로 나머지 공간을 채웁니다.
+`MyScaffold` 위젯은 수직 `column`에 하위 항목을 구성한다. `column`의 맨 위에 `MyAppBar`의 인스턴스를 배치하고 제목으로 사용할 `Text` 위젯을 `MyAppBar`에 전달한다. 위젯을 다른 위젯에 인수로 전달하는 것은 다양한 방법으로 재사용할 수 있는 제네릭 위젯을 만들 수 있는 강력한 기술이다. 마지막으로 `MyScaffold`는 `Expanded`를 사용하여 중앙 메시지로 구성된 본문으로 나머지 공간을 채운다.
 
 자세한 내용은 `Layouts`을 참조한다.
 
@@ -196,7 +196,7 @@ class TutorialHome extends StatelessWidget {
 
 이제 코드가 `MyAppBar` 및 `MyScaffold`에서 `AppBar` 및 `Scaffold` 위젯으로, 그리고 `material.dart`에서 전환되었으므로 앱이 조금 더 많은 `Material`을 살펴보기 시작한다. 예를 들어 `AppBar` 에는 그림자가 있고 제목 텍스트는 올바른 스타일을 자동으로 상속한다. `floatingActionButton` 도 추가된다.
 
-위젯은 다른 위젯에 인수로 전달됩니다. `Scaffold` 위젯은 이름있는 인수로 다양한 위젯을 사용하며 각 위젯은 `Scaffold` 레이아웃의 적절한 위치에 배치됩니다. 마찬가지로 `AppBar` 위젯을 사용하면 선행 위젯에 대한 위젯과 제목 위젯의 작업을 전달할 수 있습니다. 이 패턴은 프레임워크 전체에서 반복되며 자체 위젯을 디자인할 때 고려할 수 있는 패턴입니다.
+위젯은 다른 위젯에 인수로 전달됩니다. `Scaffold` 위젯은 이름있는 인수로 다양한 위젯을 사용하며 각 위젯은 `Scaffold` 레이아웃의 적절한 위치에 배치된다. 마찬가지로 `AppBar` 위젯을 사용하면 선행 위젯에 대한 위젯과 제목 위젯의 작업을 전달할 수 있다. 이 패턴은 프레임워크 전체에서 반복되며 자체 위젯을 디자인할 때 고려할 수 있는 패턴이다.
 
 자세한 내용은 `Material Components` 위젯을 참조하자.
 
@@ -232,7 +232,7 @@ class MyButton extends StatelessWidget {
 ```
 `GestureDetector` 위젯에는 시각적 표현이 없지만 대신 사용자의 제스처를 감지한다. 사용자가 `Container`를 탭하면 `GestureDetector`가 `onTap()` 콜백을 호출하고 이 경우 console에 메시지를 출력한다. `GestureDetector`를 사용하여 탭(taps), 끌기(drags), 배율 조정(scales)을 비롯한 다양한 입력 제스처를 감지할 수 있다.
 
-많은 위젯이  `GestureDetector`를 사용하여 다른 위젯에 대한 선택적 콜백을 제공,한다. 예를 들어 `IconButton`, `RaisedButton` 및 `FloatingActionButton` 위젯에는 사용자가 위젯을 누를 때 트리거되는 `onPressed()` 콜백이 있다.
+많은 위젯이  `GestureDetector`를 사용하여 다른 위젯에 대한 선택적 콜백을 제공한다. 예를 들어 `IconButton`, `RaisedButton` 및 `FloatingActionButton` 위젯에는 사용자가 위젯을 누를 때 트리거되는 `onPressed()` 콜백이 있다.
 
 자세한 내용은 `Flutter`의 `Gestures` 섹션을 참조하자.
 
@@ -240,7 +240,7 @@ class MyButton extends StatelessWidget {
 
 지금까지 이 페이지에서는 stateless 위젯만 사용했다. stateless 위젯은 상위 위젯에서 인수를 받아 최종 멤버 변수에 저장한다. 위젯이 build()를 요청하면 이 저장된 값을 사용하여 새로 생성하는 위젯에 대한 새 인수를 파생한다.
 
-보다 복잡한 경험을 구축하기 위해(예: 사용자 입력에 보다 흥미로운 방식으로 반응하기 위해) 애플리케이션은 일반적으로 어떤 상태를 전달합니다. Flutter는 이 아이디어를 포착하기위해  `StatefulWidgets` 를 사용한다. `StatefulWidgets`는 상태를 유지하는 데 사용되는 State 개체를 생성하는 방법을 알고 있는 특수 위젯이다. 앞에서 언급된 `RaisedButton`을 사용하는 아래 기본 예제를 고려해보자.
+보다 복잡한 경험을 구축하기 위해(예: 사용자 입력에 보다 흥미로운 방식으로 반응하기 위해) 애플리케이션은 일반적으로 어떤 상태를 전달한다. Flutter는 이 아이디어를 포착하기위해  `StatefulWidgets` 를 사용한다. `StatefulWidgets`는 상태를 유지하는 데 사용되는 State 개체를 생성하는 방법을 알고 있는 특수 위젯이다. 앞에서 언급된 `RaisedButton`을 사용하는 아래 기본 예제를 고려해보자.
 
 ``` dart
 class Counter extends StatefulWidget {
@@ -412,6 +412,7 @@ class ShoppingListItem extends StatelessWidget {
 부모가 `onCartChanged` 콜백을 수신하면 부모는 내부 상태를 업데이트하여 부모가 새 `inCart` 값으로 `ShoppingListItem`의 새 인스턴스를 다시 작성하고 생성하도록 트리거한다. 부모가 다시 빌드할 때 `ShoppingListItem`의 새 인스턴스를 생성하지만 프레임워크가 새로 빌드된 위젯을 이전에 빌드된 위젯과 비교하고 차이점만 기본 `RenderObject`에 적용하기 때문에 해당 작업이 저렴하다.
 
 다음은 변경 가능한 상태를 저장하는 부모 위젯의 예이다.
+
 ``` dart
   class ShoppingList extends StatefulWidget {
   ShoppingList({Key key, this.products}) : super(key: key);
@@ -477,7 +478,7 @@ void main() {
   ));
 }
 ```
-`ShoppingList` 클래스는 `StatefulWidget`을 확장한다. 즉, 이 위젯은 변경 가능한 상태를 저장한다. `ShoppingList` 위젯이 트리에 처음 삽입되면 프레임워크는 `createState()` 함수를 호출하여 트리의 해당 위치와 연결할 _`ShoppingListState`의 새 인스턴스를 만든다.
+`ShoppingList` 클래스는 `StatefulWidget`을 확장한다. 즉 이 위젯은 변경 가능한 상태를 저장한다. `ShoppingList` 위젯이 트리에 처음 삽입되면 프레임워크는 `createState()` 함수를 호출하여 트리의 해당 위치와 연결할 `_ShoppingListState`의 새 인스턴스를 만든다.
 
 (`State`의 하위 클래스는 일반적으로 private 구현 세부 정보임을 나타내기 위해 이름앞에 underscores가 사용된다.) 이 위젯의 부모가 다시 빌드되면 부모는 `ShoppingList`의 새 인스턴스를 생성하지만 프레임워크는 `createState`를 다시 호출하는 기 보다는 이미 트리에 있는 `_ShoppingListState` 인스턴스를 재사용한다.
 
@@ -485,7 +486,6 @@ void main() {
 
 `onCartChanged` 콜백을 처리할 때 `_ShoppingListState`는 `_shoppingCart`에서 제품을 추가하거나 제거하여 내부 상태를 변경한다. 내부 상태가 변경되었음을 프레임워크에 알리기 위해 해당 호출을 `setState()` 호출로 래핑한다. `setState`를 호출하면 이 위젯이 더티( dirty)로 표시되고 다음에 앱에서 화면을 업데이트해야 할 때 다시 빌드되도록 예된다. 위젯의 내부 상태를 수정할 때 `setState`를 호출하는 것을 잊은 경우 프레임워크는 위젯이 더티( dirty)라는 것을 알지 못하고 위젯의 `build()` 함수를 호출하지 않을 수 있다. 즉, 사용자 인터페이스가 변경된 상태를 반영하도록 업데이트되지 않을 수 있다.
 이러한 방식으로 상태를 관리하면 자식 위젯을 만들고 업데이트하기 위한 별도의 코드를 작성할 필요가 없다. 대신 두 상황을 모두 처리하는 빌드 기능을 구현하기만 하면 된다.
-
 
 ### 위젯 수명 주기 이벤트에 반응하기 (Responding to widget lifecycle events)
 
@@ -512,4 +512,3 @@ void main() {
 전역 키를 사용하여 자식 위젯을 고유하게 식별한다. 전역 키는 형제 간에 고유해야 하는 로컬 키와 달리 전체 위젯 계층에서 전역적으로 고유해야 한다. 전역적으로 고유하기 때문에 전역 키를 사용하여 위젯과 연결된 상태를 검색할 수 있다.
 
 자세한 내용은 GlobalKey API를 참조하라.
-
