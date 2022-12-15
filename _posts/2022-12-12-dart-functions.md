@@ -69,7 +69,7 @@ void enableFlags({bool bold = false, bool hidden = false}) {...}
 enableFlags(bold: true);
 ```
 
-그렇지 않고 이름이 지정된 매개변수를 필수로 지정하여 호출자가 매개변수에 대한 값을 제공하도록 요구하기를 원하는 경우 `required ` 주석을 추가한다.
+그렇지 않고 이름이 지정된 매개변수를 필수로 지정하여 호출자가 매개변수에 대한 값을 제공하도록 요구하기를 원하는 경우 `required` 주석을 추가한다.
 
 ``` dart
 const Scrollbar({super.key, required Widget child});
@@ -110,6 +110,7 @@ String say(String from, String msg, [String? device]) {
 ```dart
 assert(say('Bob', 'Howdy') == 'Bob says Howdy');
 ```
+
 다음은 세 번째 매개변수를 사용하여 이 함수를 호출하는 예이다.
 
 ``` dart
@@ -152,6 +153,7 @@ void main(List<String> arguments) {
   assert(arguments[1] == 'test');
 }
 ```
+
 `args` 라이브러리를 사용하여 명령줄 인수를 정의하고 구문 분석할 수 있다.
 
 - #### 일급 객체로서의 함수(Functions as first-class objects)
@@ -192,7 +194,7 @@ assert(loudify('hello') == '!!! HELLO !!!');
 };
 ```
 
-다음 예제에서는 형식화되지 않은 (untyped) 매개 변수 `item`을 사용하여 익명 함수를 정의하고 이를 map 함수에 전달합니다. `list`의 각 항목에 대해 호출되는 이 함수는 각 문자열을 대문자로 변환한다. 그런 다음 forEach에 전달된 익명 함수에서 변환된 각 문자열이 문자열의 길이와 함께 출력된다.
+다음 예제에서는 형식화되지 않은 (untyped) 매개 변수 `item`을 사용하여 익명 함수를 정의하고 이를 map 함수에 전달한다. `list`의 각 항목에 대해 호출되는 이 함수는 각 문자열을 대문자로 변환한다. 그런 다음 forEach에 전달된 익명 함수에서 변환된 각 문자열이 문자열의 길이와 함께 출력된다.
 
 ``` dart
 void main() {}
@@ -329,7 +331,7 @@ void main() {
 ---
 - #### 반환 값 (Return values)
 
-모든 함수는 값을 반환한다. 반환 값이 지정되지 않은 경우  ` return null;`  문이 함수 본문에 암시적으로 추가된다.
+모든 함수는 값을 반환한다. 반환 값이 지정되지 않은 경우  `return null;`  문이 함수 본문에 암시적으로 추가된다.
 
 ``` dart
 foo() {}
