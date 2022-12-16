@@ -200,7 +200,7 @@ class TutorialHome extends StatelessWidget {
 
 자세한 내용은 `Material Components` 위젯을 참조하자.
 
-(참고: `Material`은 Flutter에 포함된 2개의 번들 디자인 중 하나이다. iOS 중심 디자인을 만들려면 자체 버전의 `CupertinoApp` 및 `CupertinoNavigationBar`가 있는 `Cupertino `구성 요소 패키지를 참조한다.)
+(참고: `Material`은 Flutter에 포함된 2개의 번들 디자인 중 하나이다. iOS 중심 디자인을 만들려면 자체 버전의 `CupertinoApp` 및 `CupertinoNavigationBar`가 있는  구성 요소 패키지를 참조한다.)
 
 ### 제스처의 처리 (Handling gestures)
 
@@ -230,6 +230,7 @@ class MyButton extends StatelessWidget {
   }
 }
 ```
+
 `GestureDetector` 위젯에는 시각적 표현이 없지만 대신 사용자의 제스처를 감지한다. 사용자가 `Container`를 탭하면 `GestureDetector`가 `onTap()` 콜백을 호출하고 이 경우 console에 메시지를 출력한다. `GestureDetector`를 사용하여 탭(taps), 끌기(drags), 배율 조정(scales)을 비롯한 다양한 입력 제스처를 감지할 수 있다.
 
 많은 위젯이  `GestureDetector`를 사용하여 다른 위젯에 대한 선택적 콜백을 제공한다. 예를 들어 `IconButton`, `RaisedButton` 및 `FloatingActionButton` 위젯에는 사용자가 위젯을 누를 때 트리거되는 `onPressed()` 콜백이 있다.
@@ -478,6 +479,7 @@ void main() {
   ));
 }
 ```
+
 `ShoppingList` 클래스는 `StatefulWidget`을 확장한다. 즉 이 위젯은 변경 가능한 상태를 저장한다. `ShoppingList` 위젯이 트리에 처음 삽입되면 프레임워크는 `createState()` 함수를 호출하여 트리의 해당 위치와 연결할 `_ShoppingListState`의 새 인스턴스를 만든다.
 
 (`State`의 하위 클래스는 일반적으로 private 구현 세부 정보임을 나타내기 위해 이름앞에 underscores가 사용된다.) 이 위젯의 부모가 다시 빌드되면 부모는 `ShoppingList`의 새 인스턴스를 생성하지만 프레임워크는 `createState`를 다시 호출하는 기 보다는 이미 트리에 있는 `_ShoppingListState` 인스턴스를 재사용한다.
@@ -511,4 +513,4 @@ void main() {
 
 전역 키를 사용하여 자식 위젯을 고유하게 식별한다. 전역 키는 형제 간에 고유해야 하는 로컬 키와 달리 전체 위젯 계층에서 전역적으로 고유해야 한다. 전역적으로 고유하기 때문에 전역 키를 사용하여 위젯과 연결된 상태를 검색할 수 있다.
 
-자세한 내용은 GlobalKey API를 참조하라.
+자세한 내용은 GlobalKey API를 참조하라
