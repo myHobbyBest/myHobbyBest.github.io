@@ -528,5 +528,7 @@ Widget 트리가 빌드되면 그 뒤에 Element트리가 생성된다. Widget �
 ### 참고자료
 
 - [프론티어쿼리 [flutter] 플러터 위젯 Key 쓰는 이유, Key 종류](https://fronquarry.tistory.com/20)
+
 - [[Flutter / Key] setState를 해도 위젯순서가 바뀌지 않는 이유를 Key로 해결해보자](https://velog.io/@tmdgks2222/Flutter-Key)
-- [플러터(Flutter) 조금 매운맛🌶️ 강좌 18|플러터(Flutter) key(키) 이해하기](https://youtu.be/lQB6HjleLMs)
+
+- [플러터(Flutter) 조금 매운맛🌶️강좌 18, 플러터(Flutter) key(키) 이해하기](https://youtu.be/lQB6HjleLMs)
