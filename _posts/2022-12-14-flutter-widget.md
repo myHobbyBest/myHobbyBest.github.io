@@ -46,8 +46,6 @@ Flutter에는 다음과 같은 강력한 기본 위젯이 함께 제공된다.
 __Text__
 `Text` 위젯을 사용하면 애플리케이션 내에서 스타일이 지정된 텍스트 실행을 만들 수 있다.
 
-
-
 __Row 와 Column__
 이러한 플렉스 위젯을 사용하면 가로(행), 세로(열) 방향 모두에서 유연한 레이아웃을 만들 수 있다. 이러한 개체의 디자인은 웹의 flexbox 레이아웃 모델을 기반으로 한다.
 
@@ -528,7 +526,7 @@ Widget 트리가 빌드되면 그 뒤에 Element트리가 생성된다. Widget �
 
 자세한 내용은 GlobalKey API를 참조하라
 
-
 ### 참고자료
 
-프론티어쿼리 [flutter] 플러터 위젯 Key 쓰는 이유, Key 종류 ( https://fronquarry.tistory.com/20 )
+- [프론티어쿼리 [flutter] 플러터 위젯 Key 쓰는 이유, Key 종류](https://fronquarry.tistory.com/20)
+- [플러터(Flutter) 조금 매운맛🌶️ 강좌 18 | 플러터(Flutter) key(키) 이해하기](https://youtu.be/lQB6HjleLMs)
