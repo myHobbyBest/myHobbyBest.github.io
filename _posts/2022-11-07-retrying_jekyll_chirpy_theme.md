@@ -22,11 +22,11 @@ __'jekyll-chirpy'__ , __Chirpy-테마'__ 로 구글링해보면 국내 블로그
 
 아무튼 잘못된 점을 인지하고 곳바로 이를 바로 잡아 다시 시도하였다. 이 모든 오류의 출발점은 git bash command 창에서 `tools/init.sh`를 실행한 것이 아래에서 처럼 오류 메시지를 발생 시키고 올바른 진행이 되지않기 때문에 init.sh를 수동으로 진행하는 과정에서 발생한 것이다.
 
-![init.sh script error](/images/2022-11-07/unstaged_files_2022_11_07.png){:class="img-responsive"}
+![init.sh script error](/images/2022-11-07/unstaged_files_2022_11_07.png)
 
 따라서 이번에는 여러종류의 다른 실행 창들에서  `tools/init.sh` 가 오류없이 잘 진행되는지 시도해보았다.  다행히 `windows PowerShell` 에서 오류 없이 잘 진행된다.
 
-![sh script on PowerShell](/images/2022-11-07/initilize-2022-11-04%20135258.png){:class="img-responsive"}
+![sh script on PowerShell](/images/2022-11-07/initilize-2022-11-04%20135258.png)
 
 ``bash`` 명령을 인식하지 못해서 이를 제거하고 입력했더니 잠시동안 작은 창하나가 생겨난 후에 사라졌다.
 _posts 디렉토리에 모든 md 파일들이 지워져있는 것을 보니 명령이 잘 실행된 것이라고 생각되었다.
@@ -35,7 +35,7 @@ _posts 디렉토리에 모든 md 파일들이 지워져있는 것을 보니 명�
 
 무사히 잘 진행되는가 싶었지만 page build과정에서 또 다시 에러가 발생하는데
 
-![page-deploy.yml build error](/images/2022-11-07/error%20code16%20-%202022-11-04%20143534.png){:class="img-responsive"}
+![page-deploy.yml build error](/images/2022-11-07/error%20code16%20-%202022-11-04%20143534.png)
 
 이번에는 에러를 잘 추적하여 에러 문구를 구글링하고 해결방법을 찾았다.
 
@@ -63,6 +63,7 @@ _posts 디렉토리에 모든 md 파일들이 지워져있는 것을 보니 명�
 테마의 설명파일에 소개된 대로 favicon을 제작해 설치했으나 파일명이 다른 이미지가 있었다. 이미지 파일명을 내부코드와 동일하게 변경했다.
 
 ### 걸러지지 않는 ERROR 3 - EXIT CODE 5 (2022.12.28)
+
 
 ### 그 밖의 오류들
 
