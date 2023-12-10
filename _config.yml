@@ -51,6 +51,10 @@ social:
 google_site_verification: EDAzzcm40XNG3-R6l-437W_uKdouyo4ISA-HCh6UuBQ
 
 # ↑ --------------------------
+  
+plugins:
+  - jekyll-seo-tag
+
 # The end of `jekyll-seo-tag` settings
 
 naver_site_verification : "491ad4078aec78a4c85c1387aa51dc596ff1ecb7"
@@ -122,9 +126,6 @@ pwa:
 
 
 paginate: 5
-  
-plugins:
-  - jekyll-seo-tag
 
   
 # ------------ The following options are not recommended to be modified ------------------
@@ -187,10 +188,10 @@ compress_html:
   ignore:
     envs: [development]
 
-plugins:
-  - jekyll-seo-tag
 
 exclude:
+  - Gemfile
+  - Gemfile.lock
   - '*.gem'
   - '*.gemspec'
   - tools
