@@ -118,10 +118,15 @@ assets:
     env:          # [development|production]
 
 pwa:
-  enabled: true   # the option for PWA feature
+  enabled: true   # the option for PWA feature\
+
 
 paginate: 5
+  
+plugins:
+  - jekyll-seo-tag
 
+  
 # ------------ The following options are not recommended to be modified ------------------
 
 kramdown:
