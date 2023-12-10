@@ -182,6 +182,9 @@ compress_html:
   ignore:
     envs: [development]
 
+plugins:
+  - jekyll-seo-tag
+
 exclude:
   - '*.gem'
   - '*.gemspec'
