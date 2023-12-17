@@ -42,6 +42,8 @@
 
   {% endif %}
 
+  {{ seo_tags }}
+
   {% capture seo_tags %}
     {% seo title=false %}
   {% endcapture %}
@@ -63,9 +65,7 @@
       {% assign seo_tags = seo_tags | replace: target, replacement %}
 
     {% endfor %}
-  {% endif %}
-
-  {{ seo_tags }}
+  {% endif %}  
 
   <title>
   {%- unless page.layout == "home" -%}
