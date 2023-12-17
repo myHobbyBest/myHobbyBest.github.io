@@ -74,6 +74,21 @@
     {{ site.title }}
   </title>
 
+  {% if page.excerpt %}
+    {% capture description %}{{ page.excerpt | strip_html | truncate: 100 }}{% endcapture %}
+  {% else %}
+    {% capture description %}{{ site.description }}{% endcapture %}
+  {% endif %}
+  <meta name="description" content="{{ description }}">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta property="og:title" content="{{ title }}">
+  <meta property="og:description" content="{{ description }}">
+  
+  <!-- 미리보기 사진 -->
+  <meta property="og:image" content="{{ "/assets/img/icon512.png" | relative_url }}">
+  
   {% include favicons.html %}
 
   {% if site.resources.ignore_env != jekyll.environment and site.resources.self_hosted %}
