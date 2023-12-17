@@ -28,8 +28,7 @@
   })(window,document,'script','dataLayer','GTM-MXQRHVB3');</script>
   <!-- End Google Tag Manager -->
   
-  {% seo %}
-
+  
   {% if page.layout == 'home' or page.layout == 'post' %}
 
     {% if site.google_analytics.pv.proxy_endpoint %}
@@ -47,6 +46,11 @@
   {% capture seo_tags %}
     {% seo title=false %}
   {% endcapture %}
+
+
+  {% seo %}
+  {% raw %}
+  {% endraw %}
 
   {% if site.img_cdn and seo_tags contains 'og:image' %}
     {% assign properties = 'og:image,twitter:image' | split: ',' %}
@@ -88,7 +92,7 @@
   
   <!-- 미리보기 사진 -->
   <meta property="og:image" content="{{ "/assets/img/icon512.png" | relative_url }}">
-  
+
   {% include favicons.html %}
 
   {% if site.resources.ignore_env != jekyll.environment and site.resources.self_hosted %}
