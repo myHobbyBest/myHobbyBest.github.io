@@ -2,7 +2,7 @@
 title:  "Built-in types"  
 date:   2022-12-12 09:00:20 +0900
 categories: [Flutter, Dart]
-tag: [Built-in types]
+tag: [Built-in-types]
 toc: true
 ---
 ### 내장 유형 (Built-in types)
